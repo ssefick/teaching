@@ -1,0 +1,403 @@
+#+TITLE: Emacs: One text editor to rule them all
+#+AUTHOR: Stephen A. Sefick
+#+DATE: 2016-08-25
+#+EMAIL: ssefick@auburn.edu
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME:
+#+latex_header: \mode<beamer>{\usetheme{Madrid}}
+#+BEAMER_THEME: Madrid
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+# #+LaTeX_CLASS_OPTIONS: [bigger]
+
+
+#    LATEX CLASS OPTIONS
+# [bigger]
+# [presentation]
+# [handout] : print handouts, i.e. slides with overlays will be printed with
+#   all overlays turned on (no animations).
+# [notes=show] : show notes in the generated output (note pages follow the real page)
+# [notes=only] : only render the nodes pages
+
+# this setting affects whether the initial PSI picture correctly fills
+# the title page, since it scales the title text. One can also use the
+# notes=show or notes=only options to produce notes pages in the output.
+# #+LaTeX_CLASS_OPTIONS: [t,10pt,notes=show]
+
+#+LaTeX_CLASS_OPTIONS: [t,10pt]
+
+
+#+BEAMER_FRAME_LEVEL: 2
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+# I want to define a style for hyperlinks
+#+LATEX_HEADER: \hypersetup{colorlinks=true, linkcolor=blue}
+
+# This line inserts a table of contents with the current section highlighted at
+# the beginning of each section
+#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Topic}\tableofcontents[currentsection]\end{frame}}
+
+# export second level headings as beamer frames. All headlines below
+# the org-beamer-frame-level (i.e. below H value in OPTIONS), are
+# exported as blocks
+#+OPTIONS: H:2
+
+#+BEAMER_HEADER:
+
+
+* COMMENT Some remarks on options
+  - [[info:org#Export%20settings][info:org#Export settings]]
+  - The H:2 setting in the options line is important for setting the
+    Beamer frame level. Headlines will become frames when their level
+    is equal to =org-beamer-frame-level=.
+  - ^:{} interpret abc_{subs} as subscript, but not abc_subs
+  - num:t configures whether to use section numbers. If set to a number
+    only headlines of this level or above will be numbered
+  - ::t defines that lines starting with ":" will use fixed width font
+  - |:t include tables in export
+  - -:t Non-nil means interpret "\-", "--" and "---" for export.
+  - f:t include footnotes
+  - *:t Non-nil means interpret
+    : *word*, /word/, _word_ and +word+.
+  - <:t toggle inclusion of timestamps
+  - timestamp:t include a document creation timestamp into the exported file
+  - todo:t include exporting of todo keywords
+  - d:nil do not export org heading drawers
+  - tags:nil do not export headline tags
+
+
+* Introduction
+
+** What is emacs???
+*** Emacs is a *TEXT* editor 
+
+\vspace{0.25in}
+
+#+ATTR_LATEX: width=0.25\textwidth
+[[file:./emacs5-512.png]]
+
+*** History
+- First written 1972 MIT AI Lab
+- GNUEmacs written 1984
+- https://www.emacswiki.org/emacs/EmacsHistory
+
+  
+** Motivation for using Emacs
+- Many files represented as text
+
+
+** Informatic text files
+*** Data
+- most data is text 
+
+\vspace{0.25in}
+
+*** Software
+- Shell
+- R
+- Perl/Python
+- Markdown (github)
+- Many others
+
+
+** Motivation for using Emacs
+- Many files represented as text
+- No focus change
+ 
+** No focus change
+- Less clicking more work! 
+   - (remember the hand?)
+\vspace{0.25in}
+- Most work in 1 program
+  - same shortcuts etc.
+
+** Motivation for using Emacs
+- Many file represented as text
+- No focus change
+- Highly Customizable
+  - package manager
+  - .emacs
+
+** Motivation for using Emacs
+- Many file represented as text
+- No focus change
+- Highly Customizable
+  - package manager
+  - .emacs
+- 1 set keyboard shortcuts
+** Motivation for using Emacs
+- Many file represented as text
+- No focus change
+- Highly Customizable
+  - package manager
+  - .emacs
+- 1 set keyboard shortcuts
+- *Cross Platform*
+
+
+* Using emacs to get work done
+
+** Using emacs to get work done
+- Keyboard shortcuts
+
+** Keyboard shortcuts 
+
+*** Disadvantages:
+
+**** Lots of them!!!
+
+
+\vspace{0.25in}
+
+\vspace{0.25in}
+*** Benefits:
+**** Hands do not leave the keyboard
+       
+**** Work similarly in all emacs modes
+
+\vspace{0.25in}
+*** Caveat: Productivity != Number of Shortcuts you know
+
+\vspace{0.25in}
+*** Lots of cheatsheets for most major modes
+  - [[http://www.google.com][Google]]
+
+** Keyboard shortcuts
+
+*** Example 						     :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+    #+BEGIN_EXAMPLE
+    C-x C-c hold Ctrl press x then hold Ctrl press c
+    
+    M-x hold Alt key press x
+    #+END_EXAMPLE
+
+*** Very Useful Sortcuts 				     :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+    #+BEGIN_EXAMPLE
+    C-g - stop command ***STOP EMACS IN ITS TRACKS***
+
+    C-x C-c - exits emacs
+    C-x C-s - saves file
+    C-x C-f - opens file
+    C-x k - kills a buffer
+    C-x 1 - single window
+    C-x 2 - horizontal 2 pane
+    C-x 3 - vertical 2 pane
+    M-x - run command
+    
+    C-x o move between buffers
+    #+END_EXAMPLE
+  
+** Keyboard shortcuts
+
+*** Text Editing 					     :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+    #+BEGIN_EXAMPLE
+    C-f - forward 1 character
+    C-b - bacward 1 character
+    C-n - down 1 line
+    C-p - up 1 line
+    C-a - begining of line
+    C-e - end of line
+
+    C-space - set mark; select area
+    C-w - cut
+    M-w - copy
+    C-y - paste
+    #+END_EXAMPLE
+
+*** *MANY MANY MORE*
+*** NOT *NECESSARY* TO KNOW THEM ALL TO BE *PRODUCTIVE*
+    
+
+** Using emacs to get work done
+- Keyboard shortcuts
+\vspace{0.25in}
+- .emacs
+
+
+** .emacs
+- Linux/Unix *Text* configuration file
+\vspace{0.25}
+
+*** .emacs 						     :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+    #+BEGIN_EXAMPLE
+;;--------------------------------------------------------------;;
+;;ESS R - assign <- to :
+(setq ess-smart-S-assign-key ";") 
+;;--------------------------------------------------------------;;
+
+;;--------------------------------------------------------------;;
+;;org-mode
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+;;--------------------------------------------------------------;;
+    #+END_EXAMPLE
+    
+
+** Using emacs to get work done
+- Keyboard shortcuts
+\vspace{0.25in}
+- .emacs
+\vspace{0.25in}
+- Package Manager
+
+** Package manager
+- MELPA [[https://melpa.org/#/][MELPA Package Manager]]
+
+- M-x list-packages
+
+*** .emacs 						     :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+    #+BEGIN_EXAMPLE
+;;--------------------------------------------------------------;;
+;;Added Sefick 20160525
+(require 'package) ;; You might already have this line
+(add-to-list 'package-archives
+     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(when (< emacs-major-version 24)
+     ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . 
+    "http://elpa.gnu.org/packages/")))
+(package-initialize) ;; You might already have this line
+;;--------------------------------------------------------------;;
+    #+END_EXAMPLE
+
+
+* Integrated Development Environments (IDE; Getting data analysis done!)
+
+** IDEs
+- Program completion (generally)
+\vspace{0.25in}
+- interactive program building
+  - write in one window
+  - evaluate in another
+\vspace{0.25in}
+- Knows language conventions
+  - autocomplete
+  - TABS!!!
+\vspace{0.25in}
+- Syntax highlighting
+
+** Shell Scripts
+[[file:./sh_IDE.png]]
+
+
+** Emacs Speaks Statistics R (ESS)
+[[file:./ESS_IDE.png]]
+
+
+** Markdown: Emacs
+[[file:./README_md.png]]
+
+
+** Markdown: Github
+[[file:./README_md_GITGUB.png]]
+
+** Many others
+- Python
+- Perl
+- C
+- Java
+- etc., etc., etc.
+
+
+* Conclusions
+
+** Text Editing Rules!
+- 1 program/many uses
+- No loss of focus
+- More time with fingers on keyboard
+\vspace{0.5}
+*** Minimal setup I would recomend
+- Markdown
+- ESS
+- Python/Perl IDE
+
+\vspace{0.5}
+*** Further Help (Emacs was scary to me in June!!!)
+- Google 
+
+- *Just start EXPERIMENTING!*
+
+
+* Exercise
+
+** Sort a bed file
+
+- Bed files define genomic regions
+\vspace{0.25in}
+- sim.bed is a bedfile generated from a VCF SNP file
+\vspace{0.25in}
+- We need to sort it for downstream analysis
+\vspace{0.25in}
+- Let's write a bash script to do this
+\vspace{0.25in}
+- Things to remember about the terminal in Emacs
+  - when in charmode (default) acts like a terminal
+  - when in linemode acts like an emacs buffer
+
+** Exercise
+Point play around with emacs \\ Work together \\ Do not get bogged down with *sort* command 
+\vspace{0.25in}
+
+1. unzip Emacs\_exercise.zip
+
+2. open emacs in Emacs\_exercise folder
+   - emacs -nw
+
+3. split buffer
+
+4. move to other buffer and start terminal
+
+5. while the focus is in the terminal change to linemode
+
+6. Try to navigate with keyboard shortcuts
+
+7. use ls and then copy sim.bed 
+
+8. move back to script window and paste
+
+9. now write a script to sort the bed file
+ 
+
+* Test Slides
+  
+** What are CNTs?
+*** when? who?                                :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.6
+    :END:
+#+ATTR_BEAMER: :overlay +-
+- 1952 bla bla bla
+- 1991 Dr. Sumio Iijima publishes ``Helical microtubules of graphitic carbon'' 
+*** Column 2						    :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :BEAMER_env: ignoreheading
+    :END:      
+    #+ATTR_LATEX: width=\textwidth
+    [[file:./emacs5-512.png]]

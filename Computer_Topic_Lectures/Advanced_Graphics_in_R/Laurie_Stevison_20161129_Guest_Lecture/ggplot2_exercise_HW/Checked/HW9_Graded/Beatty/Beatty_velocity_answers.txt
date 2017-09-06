@@ -1,0 +1,13 @@
+Questions: 
+
+1. Does Velocity Vary with Time?
+
+Yes, it inceases between the 18th and 25th in each block, and tends to decrease on the 2nd. The effects seen on the 9th are variable. 
+
+2. Does Velocity vary among blocks?
+
+Initial and final velociy does vary among blocks. Blocks B,D,E, and F being ~.1 whereas blocks A and C begin at ~.2 and ~.03 respectively.
+
+3. There was a rain event during the experiment. When was this? HInt: uniform increase in velocity at all blocks.
+
+November 25th

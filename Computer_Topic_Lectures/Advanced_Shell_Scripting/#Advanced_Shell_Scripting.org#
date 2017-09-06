@@ -1,0 +1,28 @@
+#+TITLE: Arabidopis or a Mink?
+
+* Outline for lecture
+** Shell Scripting
+*** What is a shell script?
+**** A set of commands that does some stuff
+
+*** Important things to consider when Scripting
+**** Generality/Time trade off
+**** Reproducible
+**** WELL DOCUMENTED!!!
+**** Tidiness
+
+*** Anatomy of a shell script - Use really complicated script [[file:join_table_and_put_into_correct_format.sh]]
+**** Shebang
+***** Who cares is it always !#/bin/bash...
+**** Modules
+**** Variables
+***** When to use them
+**** Modules
+
+** Literate Programming
+*** What is literate Programming
+*** Who started it
+*** How do you do it
+*** Why is it important
+    
+** Literate Programming discussion

@@ -1,0 +1,353 @@
+#+TITLE: The Biogeography of Speciation: new genomic insights about reinforcement using biological collections
+#+AUTHOR: Stephen A. Sefick
+#+DATE: 2016-12-02
+#+EMAIL: ssefick@auburn.edu
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME:
+#+latex_header: \mode<beamer>{\usetheme{Madrid}}
+#+BEAMER_THEME: Madrid
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+# #+LaTeX_CLASS_OPTIONS: [bigger]
+
+
+#    LATEX CLASS OPTIONS
+# [bigger]
+# [presentation]
+# [handout] : print handouts, i.e. slides with overlays will be printed with
+#   all overlays turned on (no animations).
+# [notes=show] : show notes in the generated output (note pages follow the real page)
+# [notes=only] : only render the nodes pages
+
+# this setting affects whether the initial PSI picture correctly fills
+# the title page, since it scales the title text. One can also use the
+# notes=show or notes=only options to produce notes pages in the output.
+# #+LaTeX_CLASS_OPTIONS: [t,10pt,notes=show]
+
+#+LaTeX_CLASS_OPTIONS: [t,10pt]
+
+
+#+BEAMER_FRAME_LEVEL: 2
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+# I want to define a style for hyperlinks
+#+LATEX_HEADER: \hypersetup{colorlinks=true, linkcolor=blue}
+
+# This line inserts a table of contents with the current section highlighted at
+# the beginning of each section
+#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Topic}\tableofcontents[currentsection]\end{frame}}
+
+# export second level headings as beamer frames. All headlines below
+# the org-beamer-frame-level (i.e. below H value in OPTIONS), are
+# exported as blocks
+#+OPTIONS: H:2
+
+#+BEAMER_HEADER:
+
+
+* COMMENT Some remarks on options
+  - [[info:org#Export%20settings][info:org#Export settings]]
+  - The H:2 setting in the options line is important for setting the
+    Beamer frame level. Headlines will become frames when their level
+    is equal to =org-beamer-frame-level=.
+  - ^:{} interpret abc_{subs} as subscript, but not abc_subs
+  - num:t configures whether to use section numbers. If set to a number
+    only headlines of this level or above will be numbered
+  - ::t defines that lines starting with ":" will use fixed width font
+  - |:t include tables in export
+  - -:t Non-nil means interpret "\-", "--" and "---" for export.
+  - f:t include footnotes
+  - *:t Non-nil means interpret
+    : *word*, /word/, _word_ and +word+.
+  - <:t toggle inclusion of timestamps
+  - timestamp:t include a document creation timestamp into the exported file
+  - todo:t include exporting of todo keywords
+  - d:nil do not export org heading drawers
+  - tags:nil do not export headline tags
+
+
+* Introduction
+** Motivation
+   :PROPERTIES:
+   :BEAMER_act: [<+->]
+   :END:
+1. Speciation
+   - Speciation results in biodiversity
+   - Biodiversity declining
+   - *Important to study how biodiversity is produced* \vspace{0.25in}
+2. Biogeography important to speciation process \vspace{0.25in}
+3. Genomics
+   - since 2006 near exponential increase in genomic data
+   - Recently computationally feasible to identify genetic variants 
+     - simple
+     - complex \vspace{0.25in}
+4. *Transform our understanding of the relationship of biogeography with speciation*
+
+** Types of speciation
+** Types of speciation
+#+ATTR_BEAMER: :overlay +-
+1. Allopatric Speciation
+   - interrupted species range (i.e., stream)
+   - decreased migration and gene flow
+   - 2 incipient species \vspace{0.25in}
+
+
+** Allopatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Allopatric_Speciation_Figure/png/1_Allopatric_Speciation.png]]
+** Allopatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Allopatric_Speciation_Figure/png/2_Allopatric_Speciation.png]]
+** Allopatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Allopatric_Speciation_Figure/png/3_Allopatric_Speciation.png]]
+** Allopatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Allopatric_Speciation_Figure/png/4_Allopatric_Speciation.png]]
+** Allopatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Allopatric_Speciation_Figure/png/5_Allopatric_Speciation.png]]
+** Allopatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Allopatric_Speciation_Figure/png/6_Allopatric_Speciation.png]]
+
+** Types of speciation
+2 main types of speciation in a biogeographic context
+1. Allopatric Speciation
+   - interrupted species range (i.e., stream)
+   - decreased migration and gene flow
+   - 2 incipient species \vspace{0.25in}
+#+ATTR_BEAMER: :overlay +-
+2. Sympatric Speciation
+   - no species range interruption
+   - proceeds with gene flow
+   - 2 incipient species \vspace{0.25in}  
+
+
+** Sympatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Sympatric_Speciation_Figure/png/1_Sympatric_Speciation.png]]
+** Sympatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Sympatric_Speciation_Figure/png/2_Sympatric_Speciation.png]]
+** Sympatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Sympatric_Speciation_Figure/png/3_Sympatric_Speciation.png]]
+** Sympatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Sympatric_Speciation_Figure/png/4_Sympatric_Speciation.png]]
+** Sympatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Sympatric_Speciation_Figure/png/5_Sympatric_Speciation.png]]
+** Sympatric Speciation
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Sympatric_Speciation_Figure/png/6_Sympatric_Speciation.png]]
+
+
+** Types of speciation
+1. Allopatric Speciation
+   - interrupted species range (i.e., stream)
+   - decreased migration and gene flow
+   - 2 incipient species \vspace{0.25in}
+2. Sympatric Speciation
+   - no geographic interruption
+   - proceeds with gene flow 
+   - 2 incipient species
+   - @@b:<2->@@ *Reinforcement recently shown to be important* \vspace{0.25in} 
+
+** What is reinforcement?
+** What is reinforcement?
+   :PROPERTIES:
+   :BEAMER_act: [<+->]
+   :END:
+1. 2 previously *allopatric* populations come into contact
+2. Speciation process not complete
+3. There is selection against hybrids
+   - Reproductive character displacement
+
+
+** Flycatchers
+#+ATTR_LaTeX: :caption Stre et al. 1997 :width 3in :height 2.5in :float t}
+[[file:./Figures/FlycatcherPhylogeny.png]]
+
+
+** What is reinforcement?
+1. 2 previously *allopatric* populations come into contact
+2. Speciation process not complete
+3. There is selection against hybrids
+   - Reproductive character displacement
+   - @@b:<2->@@ Ecological character displacement
+
+** Naked mole rat
+#+ATTR_LaTeX: :caption Li et al. 2015 :width 3in :height 2.5in :float t}
+[[file:./Figures/naked_mole_rat.png]]
+
+** What is reinforcement?
+1. 2 previously *allopatric* populations come into contact
+2. Speciation process not complete
+3. There is selection against hybrids
+   - Reproductive character displacement
+   - Ecological character displacement
+4. @@b:<2->@@ 2 incipient species result
+
+** Biogeographic and phylogenetic test for reinforcement
+#+ATTR_LaTeX: :caption Noor 1997 :width 3.5in :height 2.3in :float t}
+[[file:./Figures/Biogeography_of_Speciation_phylogeny.png]]
+
+** Biogeographic and phylogenetic test for reinforcement
+*** Just a column with contents
+  :PROPERTIES:
+  :BEAMER_col: 0.5
+  :END:
+#+ATTR_BEAMER: :overlay +-
+- Species B more often different from A than C
+- Originally for reproductive isolation
+- Logic of test can be applied to genetic variants
+*** Just a column with contents
+  :PROPERTIES:
+  :BEAMER_col: 0.5
+  :END:
+#+ATTR_LaTeX: :width 2.5in :height 1.3in :float t}
+[[file:./Figures/Biogeography_of_Speciation_phylogeny.png]]
+
+
+** Genetic variants
+- What exactly are genetic variants?
+** Genetic variants: Transposable elements
+#+ATTR_LaTeX: :width 2.5in :height 2.5in :float t}
+[[file:./Figures/Tranposons.png]]
+
+** Genetic variants: Short tandem repeats
+#+ATTR_LaTeX: :width 2.5in :height 2.5in :float t}
+[[file:./Figures/STR.jpg]]
+
+** Genetic variants: Structural Variants
+#+ATTR_LaTeX: :width 2.5in :height 2.5in :float t}
+[[file:./Figures/Chromosomenmutationen.png]]
+
+** Genetic variants: Single nucleotide polymorphisms
+#+ATTR_LaTeX: :width 2.5in :height 2.5in :float t}
+[[file:./Figures/SNP.jpg]]
+
+
+** Objectives and Hypotheses
+   :PROPERTIES:
+   :BEAMER_act: [<+->]
+   :END:
+
+- Objective: Use a diverse set of taxa with genomic data in online biological collections to investigate the relationship of genetic variants with biogeography. \vspace{0.25in}
+
+- H1: Complex genomic variants will show the pattern of *reinforcement*. \vspace{0.25in}
+
+- H2: SNPs representative of *reinforcement* will be associated with functions indicative of ecological character displacement. \vspace{0.25in}
+
+
+* Methods
+** Identify species groups
+** Identify species groups
+#+ATTR_BEAMER: :overlay +-
+- Conducted literature review
+  - phylogeny
+  - biogeographic context
+  - whole genome sequencing
+- Publicly available data (e.g., NCBI)
+
+** Identify species groups
+- Conducted literature review
+  - phylogeny
+  - biogeographic context
+  - whole genome sequencing
+- Publicly available data (e.g., NCBI)
+- Appropriate phylogeny, biogeographic context, and whole genome sequencing
+#+LATEX: {\footnotesize
+#+ATTR_LaTeX: align=rr
+|--------------------------+---------------------------------------------------------|
+| Organism                 | Accession Numbers                                        |
+|--------------------------+---------------------------------------------------------|
+| Mosquitoes (Anopheles)   | NCBI: PRJNA6751 and PRJNA254046                         |
+| Horses (Equus)           | ENA: PRJEB7446                                          |
+| Butterflies (Heliconius) | ENA: ERP002440                                          |
+| Flycatchers (Ficula)     | ENA: PRJEB7359                                          |
+| Dogs (Canis)             | Authors Contacted                                       |
+| Cichlids                 | NCBI: PRJNA78915, PRJNA60369,PRJNA60363, and PRJNA78185 |
+|--------------------------+---------------------------------------------------------|
+#+LATEX: }                          
+
+** Genetic Variants
+#+ATTR_BEAMER: :overlay +-
+- Download data (NCBI)
+- Use HPCs
+- GATK pipeline (variant/variant filtration)
+  - SNPs
+- Computationally identify complex genetic variants
+  - TEs
+  - STRs 
+  - SVs
+
+** Phylogenetic test for reinforcement
+*** Just a column with contents
+  :PROPERTIES:
+  :BEAMER_col: 0.5
+  :END:
+#+ATTR_BEAMER: :overlay +-
+- Restrictions:
+  - C Allopatric to all other closely related species
+  - but B and C some overlap 
+    - effects of sympatry shared  
+- outgroup (O) to restrict search for genetic variants to those derived after most recent common ancestor
+- \[D=\frac{\sum_{n=1}^{i} Sym_{i}-Allo_{i}}{\sum_{n=1}^{i} Sym_{i}+Allo_{i}}\]
+- 1 > /D/ > -1
+  - Reinforcement /D/ > 0
+*** Just a column with contents
+  :PROPERTIES:
+  :BEAMER_col: 0.5
+  :END:
+#+ATTR_LaTeX: :width 2.5in :height 1.3in :float t}
+[[file:./Figures/Biogeography_of_Speciation_phylogeny.png]]
+** Reinforcement: Complex Genetic Variants
+#+ATTR_BEAMER: :overlay +-
+- H1: Complex genomic variants will show the pattern of *reinforcement*. \vspace{0.25in}
+- Genome wide /D/ 
+- Novel permutation procedure to assess significance
+- Predictions
+  - Reinforcement /D/ > 0
+
+** Reinforcement: Ecological Character Displacement
+#+ATTR_BEAMER: :overlay +-
+- H2: SNPs representative of *reinforcement* will be associated with functions indicative of ecological character displacement. \vspace{0.25in}
+- /D/ in sliding windows
+- Novel permutation procedure to assess significance
+- Use Gene Ontology to assign functions where /D/ > 0
+  - Use GO enrichment analysis
+- Predictions
+  - Significantly enriched GO terms ecological character displacement
+    - e.g., Habitat preferences
+- Alternatives
+  - Significantly enriched GO terms reproductive character displacement
+    - e.g., sperm development
+* Significance
+** Significance
+#+ATTR_BEAMER: :overlay +-
+- taxonomic breadth \vspace{0.25in}
+- genetic variants (complex variants and SNPs) \vspace{0.25in}
+- Potential to transform our understanding of speciation's relationship with biogeography \vspace{0.25in}
+- Reveal important basic insights into how biodiversity is produced through speciation \vspace{0.25in}
+
+* Broader Impacts
+** 7th/8th Graders
+#+ATTR_BEAMER: :overlay +-
+- Speciation module AUMNH Junior Curator Camp
+- Computer Based Bioinformatics lesson
+- Program to connect online and traditional biological collections
+* Questions
+** Questions
+#+ATTR_LaTeX: :width 3in :height 3in :float t}
+[[file:./Figures/Bootsy.jpeg]]

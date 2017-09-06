@@ -1,0 +1,228 @@
+* Emacs Shortcuts for Exercise
+
+** File/General Utilities
+- C-g - stop command ***STOP EMACS IN ITS TRACKS***
+- C-x C-c - exits emacs
+- C-x C-s - saves file
+- C-x C-f - opens file
+- C-x k - kills a buffer
+- C-x 1 - single window
+- C-x 2 - horizontal 2 pane
+- C-x 3 - vertical 2 pane
+- M-x - run command
+- C-x o move between buffers
+
+** Terminal  
+- M-x term - start terminal
+- C-c C-J charmode -> linemode
+- C-c C-k linemode -> charmode
+
+** Text Editing
+- C-f - forward 1 character
+- C-b - bacward 1 character
+- C-n - down 1 line
+- C-p - up 1 line
+- C-a - begining of line
+- C-e - end of line
+
+** Copy/Paste
+- C-space - set mark; select area
+- C-w - cut
+- M-w - copy
+- C-y - paste
+
+* .emacs
+
+
+The .emacs configuration file is written in elisp. The ";;" is a comment similar to "#" in shell scripting
+
+
+#+BEGIN_SRC elisp
+;; .emacs
+
+;;--------------------------------------------------------------;;
+;;automatic line numbers
+
+;;(global-linum-mode t)
+
+
+;;python
+;;(defun my-python-mode-hook () 
+;;  (linum-mode 1)) 
+;;(add-hook 'python-mode-hook 'my-python-mode-hook) 
+
+;;R
+(autoload 'R-mode "ess-site.el" "" t)
+(add-to-list 'auto-mode-alist '("\\.R\\'" . R-mode))
+
+;;(defun my-R-mode-hook () 
+;;(linum-mode 1)) 
+
+;;(add-hook 'python-mode-hook 'my-R-mode-hook) 
+
+;;Perl
+
+;;Shell
+
+;;--------------------------------------------------------------;;
+
+;;; uncomment for CJK utf-8 support for non-Asian users
+;; (require 'un-define)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;;--------------------------------------------------------------;;
+;;Added Sefick 20160525
+(require 'package) ;; You might already have this line
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize) ;; You might already have this line
+;;--------------------------------------------------------------;;
+
+;;--------------------------------------------------------------;;
+;;Added Sefick 20160712
+;;elpy
+
+;;(pyvenv-activate (expand-file-name "~/anaconda3/bin/python3"))
+
+(package-initialize)
+(elpy-enable)
+(setq elpy-rpc-backend "jedi") 
+
+;;--------------------------------------------------------------;;
+;;python2; uncomment python3 block
+;;(elpy-use-ipython "ipython3")
+;;--------------------------------------------------------------;;
+
+;;--------------------------------------------------------------;;
+;;python3
+(elpy-use-ipython "~/anaconda3/bin/ipython3")
+(setq elpy-rpc-python-command "~/anaconda3/bin/python3")
+;;(setq python-check-command (expand-file-name "~/anaconda3/lib/python3.5/site-packages"))
+
+;;(setq python-check-command "flake8")
+
+;;--------------------------------------------------------------;;
+
+(autoload 'jedi:setup "jedi" nil t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)
+(setq jedi:complete-on-dot t)
+
+;;(add-hook 'python-mode-hook 'anaconda-mode)
+
+;;--------------------------------------------------------------;;
+
+;;--------------------------------------------------------------;;
+;;Added Sefick 20160712
+;;Sepia
+
+     (add-to-list 'load-path "~/elisp")
+     (setq sepia-perl5lib (list (expand-file-name "~/elisp/lib")))
+     (defalias 'perl-mode 'sepia-mode)
+     (require 'sepia)
+
+;;--------------------------------------------------------------;;
+
+
+;;--------------------------------------------------------------;;
+;;Added Sefick 20160712
+;;Markdown
+
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;;github markdown out with pandocs - modified from https://gist.github.com/fredRos/0e3a845de95ec654538f
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+(setq markdown-command "pandoc -c ~/.emacs.d/github-pandoc.css --from markdown_github -t html5 --mathjax --highlight-style pygments --standalone")
+
+;;gfm-mode not working...
+;;(autoload 'gfm-mode "gfm-mode"
+;;   "Major mode for editing GitHub Flavored Markdown files" t)
+;;(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
+;;--------------------------------------------------------------;;
+
+;;--------------------------------------------------------------;;
+;;Added Sefick 20160713
+;;clipboard debacle
+(require 'simpleclip)
+(simpleclip-mode 1)
+;;--------------------------------------------------------------;;
+
+;;--------------------------------------------------------------;;
+;;cobalt theme!!!
+;;Added Sefick 20160730
+(load-theme 'cobalt t t)
+(enable-theme 'cobalt)
+
+;;--------------------------------------------------------------;;
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t))
+;;--------------------------------------------------------------;;
+
+;;--------------------------------------------------------------;;
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+(require 'multi-term)
+(setq multi-term-program "/bin/bash")
+
+;;custom key bindings
+(define-key term-mode-map (kbd "C-j") 'term-char-mode)
+(define-key term-raw-map (kbd "C-j") 'term-line-mode)
+;;--------------------------------------------------------------;;
+
+;;--------------------------------------------------------------;;
+;;ESS R - assign <- to :
+(setq ess-smart-S-assign-key ";") 
+;;--------------------------------------------------------------;;
+
+;;--------------------------------------------------------------;;
+;;org-mode
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+;;--------------------------------------------------------------;;
+
+
+;;work on this tonight
+;;--------------------------------------------------------------;;
+;;pdf-tools
+;;(pdf-tools-install)
+;;--------------------------------------------------------------;;
+
+;;--------------------------------------------------------------;;
+;;Beamer
+(eval-after-load "ox-latex"
+
+  ;; update the list of LaTeX classes and associated header (encoding, etc.)
+  ;; and structure
+  '(add-to-list 'org-latex-classes
+                `("beamer"
+                  ,(concat "\\documentclass[presentation]{beamer}\n"
+                           "[DEFAULT-PACKAGES]"
+                           "[PACKAGES]"
+                           "[EXTRA]\n")
+                  ("\\section{%s}" . "\\section*{%s}")
+                  ("\\subsection{%s}" . "\\subsection*{%s}")
+                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
+;;nice code blocks
+(setq org-latex-listings t)
+
+;;--------------------------------------------------------------;;
+
+#+END_SRC

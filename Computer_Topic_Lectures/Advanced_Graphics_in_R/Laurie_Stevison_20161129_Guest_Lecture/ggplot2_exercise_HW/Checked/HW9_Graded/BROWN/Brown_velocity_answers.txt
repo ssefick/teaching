@@ -1,0 +1,14 @@
+Advanced graphics in R using ggplot2
+Text answers - Part A
+10. Do these data suggest a linear or some other type of relationship?
+	Some other type of relationship
+10a. Is this relationship linear now?
+	Yes
+13. Does the intercept look the same?
+	Yes
+14. Does the slope look the same?
+	Yes
+16. What type of transmission would you choose?
+	Automatic
+
+

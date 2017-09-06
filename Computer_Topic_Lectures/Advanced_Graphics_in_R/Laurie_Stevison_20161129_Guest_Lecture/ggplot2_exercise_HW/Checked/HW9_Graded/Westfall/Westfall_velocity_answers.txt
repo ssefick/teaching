@@ -1,0 +1,8 @@
+1. Does velocity vary with time?
+For most of the blocks, velocity increases slightly over time.
+
+2. Does velocity vary among blocks?
+Velocity varies among blocks.
+
+3. There was a rain event during the experiment. When was this?
+The rain event was on November 20.

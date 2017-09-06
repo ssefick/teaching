@@ -1,0 +1,8 @@
+Question 1 Answer
+Yes (at least somewhat). Most have little to no increase before rain event (except B=decreasing), a uniform increase during rain event, an almost uniform decrease (except D), then an increase for some blocks (A,E,F) while others either decrease (C) or have no increase (B & D).  
+
+Question 2 Answer
+Yes. Blocks A, E, and F have similar patterns, but blocks B (only block with decreasing velocity before rain event), C (smallest velocity throughout), and D (no change in velocity after rain event) vary enough to be easily seen.
+
+Question 3 Answer
+Rain happened around the November 20-21 area.

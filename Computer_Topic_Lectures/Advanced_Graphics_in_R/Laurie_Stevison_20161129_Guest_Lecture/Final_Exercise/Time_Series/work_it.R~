@@ -1,0 +1,5 @@
+vel_exp <- read.csv("experiment_velocity_time_series.csv")
+
+library(ggplot2)
+vel_exp$date <- as.Date(vel_exp$date)
+

@@ -1,0 +1,57 @@
+% Created 2016-08-25 Thu 22:17
+\documentclass[11pt]{article}
+\usepackage[AUTO]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{Exercise$_{\mathrm{Cheatsheet}}$}
+\author{Stephen Sefick}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.9.3f}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+\vspace*{1cm}
+\section{Emacs Shortcuts for Exercise}
+\label{sec-1}
+
+In terminal  
+\begin{itemize}
+\item C-c C-J charmode -> linemode
+\item C-c C-k linemode -> charmode
+\item C-x 2 - split buffer
+\item C-x o - move to buffer
+\item M-x term - start terminal
+\item C-f - forward 1 character
+\item C-b - bacward 1 character
+\item C-n - down 1 line
+\item C-p - up 1 line
+\item C-a - begining of line
+\item C-e - end of line
+\item C-space - set mark; select area
+\item C-w - cut
+\item M-w - copy
+\item C-y - paste
+\end{itemize}
+
+\end{document}

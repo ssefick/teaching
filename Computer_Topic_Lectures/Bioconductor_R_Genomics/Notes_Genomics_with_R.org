@@ -1,0 +1,51 @@
+* GATK Hard Filtering Recommendations
+|-----------+--------------------------------------+------------------------------------------------|
+| *Variant* | *Annotation*                         | *Remove If*                                    |
+|-----------+--------------------------------------+------------------------------------------------|
+| *Both*    | DP                                   | min=investigate distribution; max=5 or 6 sigma |
+|           | GQ (or RGQ)                          | inspect distribution;                          |
+|-----------+--------------------------------------+------------------------------------------------|
+| *SNP*     | QD                                   | < 2.0                                          |
+|           | MQ                                   | < 40                                           |
+|           | FS                                   | > 60                                           |
+|           | SOR                                  | > 3.0                                          |
+|           | MQRankSum                            | < -12.5                                        |
+|           | ReadPosRankSum                       | < -8.0                                         |
+|-----------+--------------------------------------+------------------------------------------------|
+| *INDEL*   | QD                                   | < 2.0                                          |
+|           | ReadPosRankSum                       | < -20.0                                        |
+|           | InbreedingCoeff (10 or more samples) | < -8.0                                         |
+|           | FS                                   | < 200.0                                        |
+|           | SOR                                  | > 10.0                                         |
+|-----------+--------------------------------------+------------------------------------------------|
+
+* Annotation Notes
+** *DP - Depth of coverage (How many "GOOD" reads)*
+*** Might be slightly different than actual depth of coverage
+**** Internal QC of the caller (MAQ)
+*** min - no quantitative guidance
+*** max - 5 or 6x the standard deviation 
+** *GQ (RGQ) - Genotype Quality (or Reference GQ)*
+*** Phred scaled
+*** 20 - 99%; 30 - 99.9%; 40 - 99.99% 
+** *QD - Variant Quality/Allele Depth*
+*** Variant Quality (QUAL) is the phred scaled probability that the variant is wrong.
+*** AD is actual depth of each observed allele (How many actual reads; in contrast to *DP*).
+** *MQ - Root mean square of the mapping quality*
+*** RMS=sqrt(sum(a^2+b^2+c^2)/3)
+**** Mapping quality - MAQ:https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2577856/; BWA: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2705234/#B13  
+***** MAPQ: MAPping Quality. It equals -10*log10(Prob._mapping_position_is_wrong), rounded to the nearest integer. A value 255 indicates that the mapping quality is not available. (https://www.biostars.org/p/15172/)
+***** MQ=40=-10*log10(0.0001); 1/1000
+****** Prob._mapping_is_wrong - This will take a little bit of figuring
+**** Practical implications: 40 means 1/10000 is wrong on average
+** *FS - phred scaled prob. alt on forward or reverse strand more or less than ref*
+*** 
+** *SOR - similar to FS, but accounts for the fact that reads at the end of exons are generally only covered by reads in 1 direction*
+*** Ratio of reads that cover both alleles
+
+** MQRankSum - test to compares MAQ alt to ref
+** ReadPosRankSum - test for positional effects 
+*** (-) Alt close to end of read
+*** (+) Ref close to end of read
+** INDEL Specific
+*** Inbreeding Coeff (10 or more samples)

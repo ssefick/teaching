@@ -1,0 +1,196 @@
+#+TITLE: Getting Genomics Done with R
+#+AUTHOR: Stephen A. Sefick
+#+DATE: 2017-03-28
+#+EMAIL: ssefick@auburn.edu
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc ^:nil
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME:
+#+latex_header: \mode<beamer>{\usetheme{Madrid}}
+#+BEAMER_THEME: Madrid
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+# #+LaTeX_CLASS_OPTIONS: [bigger]
+
+
+# #######################################################################
+# #WooHoo! Text highlighting of source blocks!!!
+# #+LATEX_HEADER: \lstset{
+# #+LATEX_HEADER:         keywordstyle=\color{blue},
+# #+LATEX_HEADER:         commentstyle=\color{red},
+# #+LATEX_HEADER:         stringstyle=\color{orange},
+# #+LATEX_HEADER:         identifierstyle=\color{orange},
+# #+LATEX_HEADER:         otherkeywords={ls, grep, wd},
+# #+LATEX_HEADER:         otherkeywords={ls, grep, wd},
+# #+LATEX_HEADER:         basicstyle=\ttfamily\small,
+# #+LATEX_HEADER:         columns=fullflexible,
+# #+LATEX_HEADER:         basewidth={0.5em,0.4em}
+# #+LATEX_HEADER:         }
+# #+LATEX_HEADER: \RequirePackage{fancyvrb}
+# #+LATEX_HEADER: ##\DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\small,formatc##om = {\color[rgb]{0.5,0,0}}}
+# #######################################################################
+
+#+LATEX_HEADER: \lstset{
+#+LATEX_HEADER:    language=sh,
+#+LATEX_HEADER:    otherkeywords={=, +, [, ], (, ), \{, \}, *, $},
+#+LATEX_HEADER: emph={addgroup,adduser,alias,ant,apropos,apt-get,aptitude,aspell,awk,basename,bash,bc,bg,break,builtin,bzip2,cal,case,cat,cd,cfdisk,chgrp,chkconfig,chmod,chown,chroot,cksum,clear,cmp,comm,command,continue,cp,cron,crontab,csplit,cut,date,dc,dd,ddrescue,declare,df,diff,diff3,    dig,dir,dircolors,dirname,dirs,dmesg,du,echo,egrep,eject,enable,env,    ethtool,eval,exec,exit,expand,expect,export,expr,false,fdformat,    fdisk,fg,fgrep,file,find,fmt,fold,for,format,free,fsck,ftp,function,    fuser,gawk,getopts,    git,    grep,groups,gzip,    gunzip,    ,hash,head,help,history,hostname,    id,if,ifconfig,ifdown,ifup,import,install,    java, java6, java_cur    join,kill,killall,    let,ln,local,locate,logname,logout,look,lpc,lpr,lprint,lprintd,    lprintq,lprm,ls,lsof,make,man,mkdir,mkfifo,mkisofs,mknod,mmv,more,    mount,mtools,mtr,mv,    mysql,    netstat,nice,nl,nohup,notify-send,    noweb,noweave,    nslookup,op,    open,passwd,paste,pathchk,ping,pkill,popd,pr,printcap,printenv,    printf,ps,pushd,pwd,quota,quotacheck,quotactl,ram,rcp,read,    readarray,readonly,reboot,remsync,rename,renice,return,rev,rm,rmdir,    rsync,scp,screen,sdiff,sed,select,seq,set,sftp,shift,shopt,shutdown,    sleep,slocate,sort,source,split,ssh,strace,su,sudo,sum,    svn, svn2git,    symlink,sync,    tail,tar,tee,test,time,times,top,touch,tr,traceroute,trap,true,    tsort,tty,type,ulimit,umask,umount,unalias,uname,unexpand,uniq,    units,    unrar,    unset,unshar,until,useradd,usermod,users,uudecode,uuencode,    vdir,vi,vmstat,watch,wc,Wget,whereis,which,while,who,whoami,write,    zcat},
+#+LATEX_HEADER:    breaklines=true,
+#+LATEX_HEADER:    keywordstyle=\color{blue},
+#+LATEX_HEADER:    stringstyle=\color{red},
+#+LATEX_HEADER:    emphstyle=\color{black}\bfseries,
+#+LATEX_HEADER:    commentstyle=\color{gray}\slshape
+#+LATEX_HEADER:  }
+
+#    LATEX CLASS OPTIONS
+# [bigger]
+# [presentation]
+# [handout] : print handouts, i.e. slides with overlays will be printed with
+#   all overlays turned on (no animations).
+# [notes=show] : show notes in the generated output (note pages follow the real page)
+# [notes=only] : only render the nodes pages
+
+# this setting affects whether the initial PSI picture correctly fills
+# the title page, since it scales the title text. One can also use the
+# notes=show or notes=only options to produce notes pages in the output.
+# #+LaTeX_CLASS_OPTIONS: [t,10pt,notes=show]
+
+#+LaTeX_CLASS_OPTIONS: [t,10pt]
+
+
+#+BEAMER_FRAME_LEVEL: 2
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+# I want to define a style for hyperlinks
+#+LATEX_HEADER: \hypersetup{colorlinks=true, linkcolor=blue}
+
+# This line inserts a table of contents with the current section highlighted at
+# the beginning of each section
+#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Topic}\tableofcontents[currentsection]\end{frame}}
+
+# export second level headings as beamer frames. All headlines below
+# the org-beamer-frame-level (i.e. below H value in OPTIONS), are
+# exported as blocks
+#+OPTIONS: H:2
+
+
+#+BEAMER_HEADER: \titlegraphic{\includegraphics[width=\textwidth,height=.3\textheight]{figures/GNU_DNA_TUX.png}}\vspace{0.25in}
+#+LaTeX_HEADER: \lstset{basicstyle=\scriptsize\ttfamily}
+
+
+* COMMENT Some remarks on options
+  - [[info:org#Export%20settings][info:org#Export settings]]
+  - The H:2 setting in the options line is important for setting the
+    Beamer frame level. Headlines will become frames when their level
+    is equal to =org-beamer-frame-level=.
+  - ^:{} interpret abc_{subs} as subscript, but not abc_subs
+  - num:t configures whether to use section numbers. If set to a number
+    only headlines of this level or above will be numbered
+  - ::t defines that lines starting with ":" will use fixed width font
+  - |:t include tables in export
+  - -:t Non-nil means interpret "\-", "--" and "---" for export.
+  - f:t include footnotes
+  - *:t Non-nil means interpret
+    : *word*, /word/, _word_ and +word+.
+  - <:t toggle inclusion of timestamps
+  - timestamp:t include a document creation timestamp into the exported file
+  - todo:t include exporting of todo keywords
+  - d:nil do not export org heading drawers
+  - tags:nil do not export headline tags
+
+
+* Introduction
+** Motivation: why write a bash script?
+** Motivation: why write a bash script?
+ #+ATTR_BEAMER: :overlay +-
+1. Reusable 
+   - Do something once; do it a thousand times \vspace{0.25in}
+2. Remember what you did
+   - analysis documentation 
+   - reproducible research 
+   - literate programming \vspace{0.25in}
+3. Deploy-able on desktop or supercomputer \vspace{0.25in}
+4. Computer Programming is JUST DARN FUN!!!
+
+** Basic Bash Scripting
+** Basic Bash Scripting
+#+ATTR_BEAMER: :overlay +-
+1. What is a script?
+   - a "recipe" for the computer \vspace{0.25in}
+2. A collection of instructions in an *interpreted language*
+   - Bash, R, Python, Perl, etc. 
+   - Instructions executed at run-time 
+   - with language specified in the shebang line \vspace{0.25in}
+3. Human-readable (next step literate programming)
+   - comment, comment, comment!!!
+   - worst enemy in 6 months?
+   - YOU ARE!!!! \vspace{0.25in}  
+** Anatomy of a script
+** Anatomy of a script
+   [[file:figures/1_anatomy_shell_script.png]]
+** Anatomy of a script
+   [[file:figures/2_anatomy_shell_script.png]]
+** Anatomy of a script
+   [[file:figures/3_anatomy_shell_script.png]]
+** Anatomy of a script
+   [[file:figures/4_anatomy_shell_script.png]]
+** Anatomy of a script
+   [[file:figures/5_anatomy_shell_script.png]]
+** What are variables?
+ #+ATTR_BEAMER: :overlay +-
+1. Environmental variables
+   - used by 1 or more applications
+   - $HOME, $PATH, $SHELL, etc.
+2. User defined variables
+   - can be anything (assume env variable names are *reserved*)
+   - best practice
+     - indicative of what it stores
+     - contains no special characters (i.e., $)
+     - separated by underscores raw_counts
+** Why are variables important?
+** Why are variables important?
+#+ATTR_BEAMER: :overlay +-
+1. tidy code
+2. easily readable
+3. less mistakes
+   - type once use multiple times
+
+** Variable creation
+1. directly
+#+BEGIN_SRC sh :results output :exports both
+wd=${HOME}/analysis_directory
+echo ${wd}
+#+END_SRC
+
+** Variable creation
+1. directly
+#+BEGIN_SRC sh :results output :exports both
+wd=${HOME}/analysis_directory
+echo ${wd}
+#+END_SRC
+
+2. dynamically
+#+BEGIN_SRC sh :results output :exports both
+##direct
+input_dir=input
+##dynamic
+files=(`ls ${input_dir} | grep sh$`)
+echo ${files[@]}
+#+END_SRC
+
+
+* VCF Annotations - GATK
+** 
+#+ATTR_BEAMER: :overlay +-
+1) I accidentally named files with *.sh* and not *.pl*
+2) What we know about the problem
+   - more than 1 mislabeled file
+   - Contained in a folder called input
+3) What is a sensible way to go about this?  
+4) Let's write a little script to fix it
+

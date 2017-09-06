@@ -1,0 +1,14 @@
+Questions:
+	1. Does velocity vary with time? 
+	
+	Yes, velocity tends to generally increase over time 
+	(except block c)
+	
+	2. Does velocity vary among blocks? 
+	
+	Yes, block A has a higher velocity and more of a 
+	change than C and E has the biggest change overall.
+	
+	3. There was a rain event during the experiment. When was this? 
+	
+	Between November 25 and December 2

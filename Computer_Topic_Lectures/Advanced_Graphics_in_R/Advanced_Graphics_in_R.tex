@@ -1,0 +1,237 @@
+% Created 2016-11-15 Tue 08:57
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Stephen A. Sefick}
+\date{2016-11-16}
+\title{Advanced graphics in R using ggplot2}
+\hypersetup{
+ pdfauthor={Stephen A. Sefick},
+ pdftitle={Advanced graphics in R using ggplot2},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 24.3.1 (Org mode 8.3.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{1) Using ggplot2}
+\label{sec:orgheadline3}
+
+\subsection{Background}
+\label{sec:orgheadline1}
+In this exercise, you will explore a dataset that is included with R by making a variety of graphs using the ggplot2 package inside of R studio. Specificaly, we will investigate how a number of variables affect miles per gallon (mpg).
+
+Explaination of the mtcars data:
+The data was extracted from the 1974 \uline{Motor Trend} US magazine,and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models) (From: ?mtcars).
+
+\subsection{Exercise}
+\label{sec:orgheadline2}
+\textbf{Explore the use of the ggplot2 package.}
+
+\begin{enumerate}
+\item Install ggplot2 and grid.
+
+\lstset{language=R,label=install ggplot2 and grid,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+install.packages(c("ggplot2", "grid"))
+\end{lstlisting}
+
+\begin{itemize}
+\item The online documentation for ggplot2 is: \href{http://docs.ggplot2.org/current}{\color{blue}{ggplot2}}
+\end{itemize}
+
+\item Load the ggplot2 package and the mtcars data.
+
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+library(ggplot2)
+data(mtcars)
+\end{lstlisting}
+
+\item Look at the transmission type column (am). Now, change transmission type to a more intuitive coding.
+
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+mtcars[mtcars$am==1,"am"] <- "automatic" 
+mtcars[mtcars$am==0,"am"] <- "manual"
+\end{lstlisting}
+
+\item In order to access how the data might be distributed, make a histogram of mpg, and color it by transmission type.
+
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+qplot(mpg, data=mtcars, geom="histogram", bins=5, fill=am, col=am)
+\end{lstlisting}
+
+\item Make 2 boxplots to explore the effect of number of gears and cylendars on mpg. Use the \textbf{geom} argument. Use the theming system to change the default look of ggplot2. Because the number of cylendars and gears are numeric (e.g., str(mtcars\$cyl)), make cyl and gear into a factor (i.e., qplot(as.factor(cyl), mpg, data=mtcars, geom="boxplot")).
+
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#Theming system example. See the documentation for more information
+qplot(as.factor(c(rep("A",5), rep("B", 5))), 1:10, geom="boxplot")+theme_bw()
+\end{lstlisting}
+\begin{itemize}
+\item \textbf{Notice the x axis label is non-sense.} It is probably a good idea to fix this. Use xlab in the qplot command to fix this (look at the documentation of \href{http://docs.ggplot2.org/current/qplot.html}{\color{blue}{qplot}}  if you are having problems).
+\end{itemize}
+
+\item We might be interested in whether automatic and manual transmission have the same relationships. You want to use the facet$\backslash$\(_{\text{wrap}}\)() functionality. 
+
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#Theming system example. See the documentation for more information
+your_plot+facet_wrap(~am)
+\end{lstlisting}
+
+\item Make a scatterplot to explore the relationship of horsepower and miles per gallon.
+
+\item Use a smoother to explore this relationship. Specifically, use a lowess smoothing line.
+
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#Theming system example. See the documentation for more information
+your_plot+geom_smooth()
+\end{lstlisting}
+
+\item Do these data suggest a linear or some other type of relationship? 
+\begin{itemize}
+\item Try log transforming both mpg and hp
+
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#log transform
+qplot(log(hp), log(mpg), data=mtcars)+geom_smooth()
+\end{lstlisting}
+
+\item Is this relationship \textbf{linear now}?
+\end{itemize}
+
+\item We can use specific methods in geom$\backslash$\(_{\text{smooth}}\)(). Now that we are convinced of log linear relationship. We can use a linear model to explore these data.
+
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#log transform
+qplot(log(hp), log(mpg), data=mtcars)+geom_smooth(method="lm")
+\end{lstlisting}
+
+\item Explore this relationship with transmission type included as a facet.
+
+\item Does the intercept look the same?
+
+\item Does the slope look the same?
+
+\item The faceted graph is nice looking but it would be better to look at these relationships without the facet. This can be acomplished with setting color or shape. Color these graphs by transmission type.
+
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#log transform
+qplot(log(hp), log(mpg), data=mtcars, col=am)+geom_smooth()
+\end{lstlisting}
+\end{enumerate}
+
+
+\begin{enumerate}
+\item Everything else being \textbf{equal}, and assuming you want to optimize \textbf{mpg}. What type of transmission would you choose?
+
+\item Since this data is multivariate, use geom$\backslash$\(_{\text{grid}}\)() the relationship of hp with mpg but also adding the information of gear, transmission, and number of cylendars. With what we have learned previously and gridded faceting (i.e., facet$\backslash$\(_{\text{grid}}\)())
+\end{enumerate}
+
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+mpg_hp_gear_trans_cyl <- qplot(hp, mpg, data=mtcars, geom="blank")+facet_grid(gear~am)
+
+mpg_hp_gear_trans_cyl+geom_smooth(method="lm")+geom_point(aes(color=as.factor(cyl)))
+\end{lstlisting}
+
+\section{2) Time Series - Experiment Sandy Creek}
+\label{sec:orgheadline8}
+
+\subsection{Background}
+\label{sec:orgheadline4}
+The data come from an experiment that I ran in 2013 in a creek near Waverly, AL. I used velocity (random slope) nested within block (random intercept) in a mixed model framework. I did this to statistically account for differences in velocity within block. This dataset has 3 columns.
+
+
+\subsection{Column Description}
+\label{sec:orgheadline6}
+\begin{itemize}
+\item \textbf{date} is date of velocity measurement
+\item \textbf{block} is experimental block
+\item \textbf{velocity} is mean velocity within a block
+\end{itemize}
+
+\subsubsection{Questions}
+\label{sec:orgheadline5}
+
+\begin{enumerate}
+\item Does velocity vary with time?
+
+\item Does velocity vary among blocks?
+
+\item There was a rain event during the experiment. When was this?
+\end{enumerate}
+
+
+\subsection{Exercise}
+\label{sec:orgheadline7}
+
+\textbf{Make a plot to investigate how velocity changes through time and block.}
+
+\begin{enumerate}
+\item Create a file named \textbf{Your$\backslash$\(_{\text{Name}}\)$\backslash$\(_{\text{time}}\)$\backslash$\(_{\text{series.R}}\)} in the \textbf{Time$\backslash$\(_{\text{Series}}\)} folder. Read in \textbf{experiment$\backslash$\(_{\text{velocity}}\)$\backslash$\(_{\text{time}}\)$\backslash$\(_{\text{series.csv}}\)} to an object called vel$\backslash$\(_{\text{exp}}\)
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#must change date into class Date in order to have qplot recognize as such.
+vel_exp <- read.csv("experiment_velocity_time_series.csv")
+\end{lstlisting}
+
+\item load the ggplot2 library, and change Date to Date class. This will ensure that ggplot2 can recognize this as a Date. 
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#must change date into class Date in order to have qplot recognize as such.
+library(ggplot2)
+vel_exp$date <- as.Date(vel_exp$date)
+\end{lstlisting}
+
+\item Plot the relationship of Date with velocity as a line graph using qplot (e.g., qplot(x, y, \ldots{}))
+
+\item Use the col argument to color the lines by block
+
+\item Decide if you want a facet or not (i.e., facet$\backslash$\(_{\text{wrap}}\)(\textasciitilde{}variable$\backslash$\(_{\text{of}}\)$\backslash$\(_{\text{interest}}\))
+
+\item Explore the “theme-ing” system theme$\backslash$\(_{\text{bw}}\)() or the custom theme that I have provided you.
+
+\item To have the custom theme usable you will have to source the file publication$\backslash$\(_{\text{ggplot2}}\)$\backslash$\(_{\text{theme.R}}\) with the source command.
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#use my publication theme
+source("publication_ggplot2_theme.R")
+your_plot+publication()
+\end{lstlisting}
+
+\item Once you have arrived at a suitable graph save it as a pdf called name$\backslash$\(_{\text{ggplot2}}\)$\backslash$\(_{\text{time}}\)$\backslash$\(_{\text{series.pdf}}\) as you did before.
+
+\lstset{language=R,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+pdf("name")
+your_ggplot2_plot_object
+dev.off
+\end{lstlisting}
+
+\item Please answer the questions posed above in a text file named name$\backslash$\(_{\text{velocity}}\)$\backslash$\(_{\text{answers.txt}}\)
+\end{enumerate}
+\end{document}

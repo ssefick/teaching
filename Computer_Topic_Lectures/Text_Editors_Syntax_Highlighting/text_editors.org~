@@ -1,0 +1,290 @@
+#+TITLE: Using text Editors
+#+AUTHOR: Stephen A. Sefick
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+OPTIONS:   ^:nil
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME:
+#+latex_header: \mode<beamer>{\usetheme{Madrid}}
+#+BEAMER_THEME: Madrid
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+# #+LaTeX_CLASS_OPTIONS: [bigger]
+
+
+# #######################################################################
+# #WooHoo! Text highlighting of source blocks!!!
+# #+LATEX_HEADER: \lstset{
+# #+LATEX_HEADER:         keywordstyle=\color{blue},
+# #+LATEX_HEADER:         commentstyle=\color{red},
+# #+LATEX_HEADER:         stringstyle=\color{orange},
+# #+LATEX_HEADER:         identifierstyle=\color{orange},
+# #+LATEX_HEADER:         otherkeywords={ls, grep, wd},
+# #+LATEX_HEADER:         otherkeywords={ls, grep, wd},
+# #+LATEX_HEADER:         basicstyle=\ttfamily\small,
+# #+LATEX_HEADER:         columns=fullflexible,
+# #+LATEX_HEADER:         basewidth={0.5em,0.4em}
+# #+LATEX_HEADER:         }
+# #+LATEX_HEADER: \RequirePackage{fancyvrb}
+# #+LATEX_HEADER: ##\DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\small,formatc##om = {\color[rgb]{0.5,0,0}}}
+# #######################################################################
+
+#+LATEX_HEADER: \lstset{
+#+LATEX_HEADER:    language=sh,
+#+LATEX_HEADER:    otherkeywords={=, +, [, ], (, ), \{, \}, *, $},
+#+LATEX_HEADER: emph={addgroup,adduser,alias,ant,apropos,apt-get,aptitude,aspell,awk,basename,bash,bc,bg,break,builtin,bzip2,cal,case,cat,cd,cfdisk,chgrp,chkconfig,chmod,chown,chroot,cksum,clear,cmp,comm,command,continue,cp,cron,crontab,csplit,cut,date,dc,dd,ddrescue,declare,df,diff,diff3,    dig,dir,dircolors,dirname,dirs,dmesg,du,echo,egrep,eject,enable,env,    ethtool,eval,exec,exit,expand,expect,export,expr,false,fdformat,    fdisk,fg,fgrep,file,find,fmt,fold,for,format,free,fsck,ftp,function,    fuser,gawk,getopts,    git,    grep,groups,gzip,    gunzip,    ,hash,head,help,history,hostname,    id,if,ifconfig,ifdown,ifup,import,install,    java, java6, java_cur    join,kill,killall,    let,ln,local,locate,logname,logout,look,lpc,lpr,lprint,lprintd,    lprintq,lprm,ls,lsof,make,man,mkdir,mkfifo,mkisofs,mknod,mmv,more,    mount,mtools,mtr,mv,    mysql,    netstat,nice,nl,nohup,notify-send,    noweb,noweave,    nslookup,op,    open,passwd,paste,pathchk,ping,pkill,popd,pr,printcap,printenv,    printf,ps,pushd,pwd,quota,quotacheck,quotactl,ram,rcp,read,    readarray,readonly,reboot,remsync,rename,renice,return,rev,rm,rmdir,    rsync,scp,screen,sdiff,sed,select,seq,set,sftp,shift,shopt,shutdown,    sleep,slocate,sort,source,split,ssh,strace,su,sudo,sum,    svn, svn2git,    symlink,sync,    tail,tar,tee,test,time,times,top,touch,tr,traceroute,trap,true,    tsort,tty,type,ulimit,umask,umount,unalias,uname,unexpand,uniq,    units,    unrar,    unset,unshar,until,useradd,usermod,users,uudecode,uuencode,    vdir,vi,vmstat,watch,wc,Wget,whereis,which,while,who,whoami,write,    zcat},
+#+LATEX_HEADER:    breaklines=true,
+#+LATEX_HEADER:    keywordstyle=\color{blue},
+#+LATEX_HEADER:    stringstyle=\color{red},
+#+LATEX_HEADER:    emphstyle=\color{black}\bfseries,
+#+LATEX_HEADER:    commentstyle=\color{gray}\slshape
+#+LATEX_HEADER:  }
+
+
+#    LATEX CLASS OPTIONS
+# [bigger]
+# [presentation]
+# [handout] : print handouts, i.e. slides with overlays will be printed with
+#   all overlays turned on (no animations).
+# [notes=show] : show notes in the generated output (note pages follow the real page)
+# [notes=only] : only render the nodes pages
+
+# this setting affects whether the initial PSI picture correctly fills
+# the title page, since it scales the title text. One can also use the
+# notes=show or notes=only options to produce notes pages in the output.
+# #+LaTeX_CLASS_OPTIONS: [t,10pt,notes=show]
+
+
+#+LaTeX_CLASS_OPTIONS: [t,10pt]
+
+
+#+BEAMER_FRAME_LEVEL: 2
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+# I want to define a style for hyperlinks
+#+LATEX_HEADER: \hypersetup{colorlinks=true, linkcolor=blue}
+
+# This line inserts a table of contents with the current section highlighted at
+# the beginning of each section
+#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Topic}\tableofcontents[currentsection]\end{frame}}
+
+# export second level headings as beamer frames. All headlines below
+# the org-beamer-frame-level (i.e. below H value in OPTIONS), are
+# exported as blocks
+#+OPTIONS: H:2
+
+
+# #+BEAMER_HEADER: \titlegraphic{\vspace{0.75in}\includegraphics[width=0.5\textwidth,height=.1\textheight]{figures/comb_2.png}}
+# #+LaTeX_HEADER: \lstset{basicstyle=\tiny\ttfamily}
+
+
+* COMMENT Some remarks on options
+  - [[info:org#Export%20settings][info:org#Export settings]]
+  - The H:2 setting in the options line is important for setting the
+    Beamer frame level. Headlines will become frames when their level
+    is equal to =org-beamer-frame-level=.
+  - ^:{} interpret abc_{subs} as subscript, but not abc_subs
+  - num:t configures whether to use section numbers. If set to a number
+    only headlines of this level or above will be numbered
+  - ::t defines that lines starting with ":" will use fixed width font
+  - |:t include tables in export
+  - -:t Non-nil means interpret "\-", "--" and "---" for export.
+  - f:t include footnotes
+  - *:t Non-nil means interpret
+    : *word*, /word/, _word_ and +word+.
+  - <:t toggle inclusion of timestamps
+  - timestamp:t include a document creation timestamp into the exported file
+  - todo:t include exporting of todo keywords
+  - d:nil do not export org heading drawers
+  - tags:nil do not export headline tags
+    
+
+* Introduction
+** Introduction
+1) Motivation
+2) Let's talk about text
+   - data
+   - scripts
+3) Syntax Highlighting
+
+** Motivation
+#+ATTR_BEAMER: :overlay +-
+1) What can we store as text?
+   - TRICK QUESTION!!!
+   - EVERYTHING!!!
+2) Relevance to biology
+   - Raw Data files
+     - vcf files
+     - bed files
+     - fasta files
+     - data logger files
+     - etc., etc., etc.
+   - Script files
+     - R
+     - Python
+     - Perl
+     - Bash
+     - C, GO, etc.
+** Why is this so important?
+#+ATTR_BEAMER: :overlay +-
+1) plain text is persistent
+   - Won't produce weird and obsolete file formats
+     - Every heard of Quattro Pro?
+     - Data lost to the world!!!
+2) Plain text is OS/editor independent
+   - e.g., emacs org mode files opened on windows
+3) Easily manipulated!!!
+   - Python or Perl
+4) Version control 
+   - git!!!
+
+* Text Editors
+** Types of editors
+#+ATTR_BEAMER: :overlay +-
+1) Linux
+   - Vi / Vim editor
+   - gedit editor
+   - Nano editor
+   - Emacs Editor
+2) Mac
+   - text wrangler
+3) Windows
+   - emacs
+   - probably other things...
+
+** Why use/what is an editor?
+#+ATTR_BEAMER: :overlay +-
+1) Text editors are similar to word processors 
+   - less "features" (or annoyances...)
+   - generally better at editing text
+2) Basic text editor generally OS supplied
+3) Main uses
+   - write in plain text
+4) Good text editors have
+   - Syntax highlighting
+     - color coded text based on language
+   - nice shortcuts that can speed your txt editing
+5) A popular text editor for Linux is called ‘Vi’. 
+   - UNIX-y.
+   - red hat super user default editor
+6) Improved to ‘VIM’ which means ‘Vi IMproved’.
+7) VIM is hard to use... (I am an emacs man myself!)
+8) Emacs is hard to use
+   - definite learning curve
+   - but ...
+     - well worth it
+     - can be used to replace everything!!!
+9) We will focus on other editors 
+
+** Types of editors
+#+ATTR_BEAMER: :overlay +-
+1) Two main types of editors.
+   - Console based editors
+   - GUI based editors
+2) Console based editors
+   - emacs
+   - nano
+   - vim
+3) GUI based editors
+   - PC
+     - gedit,
+     - TextWrangler
+   - Linux
+     - gedit
+     - emacs
+   - Mac
+     - TextWrangler
+** Console based editors
+1) $ nano somefile.txt
+
+2) $ emacs -nw somefile.txt
+
+3) $ vi somefile.txt
+
+4) somefile.txt 
+   - exist or not in present working directory (pwd)
+   - if exists will open
+   - else will create
+   - PATH is important
+     - emacs -nw somefile.txt (in ~/Desktop/)
+     - emacs -nw ~/somefile.txt
+
+** Nano
+1) OS: Linux and Mac
+2) GNU Nano written in 1999 by Chris Allegretta.
+3) GNU clone of Pico editor.
+4) GNU Nano is a small and friendly text editor 
+5) Besides basic text editing
+   - interactive search and replace
+   - go to line and column number
+   - auto-indentation
+   - feature toggles
+   - internationalization support
+   - filename tab completion
+
+** VI/VIM editor
+1) OS: Unix, Linux and Windows 
+2) First Vim editor built in 1991
+3) Vim 
+   - command-line interface (CLI)
+   - graphical user interface (GUI)
+   - gVim is the graphical version
+
+** EMACS!!!!!!!!!!!!! 
+1) OS: Unix, Linux and Windows 
+2) first written in 1972 at MIT
+3) GNU Emacs written 1984 by Richard Stallman
+4) Emacs
+   - emacs -nw file; command-line interface (CLI)
+   - emacs file; graphical user interface (GUI)
+   - supports everything!!!
+5) Must install
+   - What linux distro thinlink?
+
+** TextWrangler
+1) OS: Mac
+2) I know people love it.
+3) Looks like TextWrangler is being "sunsetted"
+   - use BBedit
+4) https://www.barebones.com/products/textwrangler/
+
+** Smultron
+1) When I used Mac...
+2) this editor ruled!
+3) https://www.peterborgapps.com/smultron/
+
+* Syntax Highlighting
+** What is Syntax Highlighting?
+1) colorful text!
+2) importantly it helps
+   - Readability
+   - error finding
+   - speed
+3) Used?
+4) In text editors
+5) Scripts
+
+** Let's set Nano up 
+1) open hello_python.py
+   - nano hello_python.py
+   - notice not colorful
+2) chmod +x hello_python.py
+3) ./hello_python
+4) Do you have .nanorc?
+5) if no proceed to 6; if yes proceed to 8
+6) cp /etc/nanorc ~/.nanorc
+7) nano ~/.nanorc
+8) uncomment whatever languages you use
+   - python
+   - R
+   - bash
+9) open hello_python.py
+   - notice the wonderful colors!
+10) That's syntax highlighting!
+

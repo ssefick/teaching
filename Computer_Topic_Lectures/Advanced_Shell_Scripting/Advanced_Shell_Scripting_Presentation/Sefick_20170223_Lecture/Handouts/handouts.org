@@ -1,0 +1,108 @@
+#+TITLE: Literate programming and output
+#+AUTHOR: Stephen A. Sefick
+#+DATE: 2017-02-23
+#+EMAIL: ssefick@auburn.edu
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc ^:nil
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME:
+
+
+# #######################################################################
+# #WooHoo! Text highlighting of source blocks!!!
+# #+LATEX_HEADER: \lstset{
+# #+LATEX_HEADER:         keywordstyle=\color{blue},
+# #+LATEX_HEADER:         commentstyle=\color{red},
+# #+LATEX_HEADER:         stringstyle=\color{orange},
+# #+LATEX_HEADER:         identifierstyle=\color{orange},
+# #+LATEX_HEADER:         otherkeywords={ls, grep, wd},
+# #+LATEX_HEADER:         otherkeywords={ls, grep, wd},
+# #+LATEX_HEADER:         basicstyle=\ttfamily\small,
+# #+LATEX_HEADER:         columns=fullflexible,
+# #+LATEX_HEADER:         basewidth={0.5em,0.4em}
+# #+LATEX_HEADER:         }
+# #+LATEX_HEADER: \RequirePackage{fancyvrb}
+# #+LATEX_HEADER: ##\DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\small,formatc##om = {\color[rgb]{0.5,0,0}}}
+# #######################################################################
+
+#+LATEX_HEADER: \lstset{
+#+LATEX_HEADER:    language=sh,
+#+LATEX_HEADER:    otherkeywords={=, +, [, ], (, ), \{, \}, *, $},
+#+LATEX_HEADER: emph={addgroup,adduser,alias,ant,apropos,apt-get,aptitude,aspell,awk,basename,bash,bc,bg,break,builtin,bzip2,cal,case,cat,cd,cfdisk,chgrp,chkconfig,chmod,chown,chroot,cksum,clear,cmp,comm,command,continue,cp,cron,crontab,csplit,cut,date,dc,dd,ddrescue,declare,df,diff,diff3,    dig,dir,dircolors,dirname,dirs,dmesg,du,echo,egrep,eject,enable,env,    ethtool,eval,exec,exit,expand,expect,export,expr,false,fdformat,    fdisk,fg,fgrep,file,find,fmt,fold,for,format,free,fsck,ftp,function,    fuser,gawk,getopts,    git,    grep,groups,gzip,    gunzip,    ,hash,head,help,history,hostname,    id,if,ifconfig,ifdown,ifup,import,install,    java, java6, java_cur    join,kill,killall,    let,ln,local,locate,logname,logout,look,lpc,lpr,lprint,lprintd,    lprintq,lprm,ls,lsof,make,man,mkdir,mkfifo,mkisofs,mknod,mmv,more,    mount,mtools,mtr,mv,    mysql,    netstat,nice,nl,nohup,notify-send,    noweb,noweave,    nslookup,op,    open,passwd,paste,pathchk,ping,pkill,popd,pr,printcap,printenv,    printf,ps,pushd,pwd,quota,quotacheck,quotactl,ram,rcp,read,    readarray,readonly,reboot,remsync,rename,renice,return,rev,rm,rmdir,    rsync,scp,screen,sdiff,sed,select,seq,set,sftp,shift,shopt,shutdown,    sleep,slocate,sort,source,split,ssh,strace,su,sudo,sum,    svn, svn2git,    symlink,sync,    tail,tar,tee,test,time,times,top,touch,tr,traceroute,trap,true,    tsort,tty,type,ulimit,umask,umount,unalias,uname,unexpand,uniq,    units,    unrar,    unset,unshar,until,useradd,usermod,users,uudecode,uuencode,    vdir,vi,vmstat,watch,wc,Wget,whereis,which,while,who,whoami,write,    zcat},
+#+LATEX_HEADER:    breaklines=true,
+#+LATEX_HEADER:    keywordstyle=\color{blue},
+#+LATEX_HEADER:    stringstyle=\color{red},
+#+LATEX_HEADER:    emphstyle=\color{black}\bfseries,
+#+LATEX_HEADER:    commentstyle=\color{black}\slshape
+#+LATEX_HEADER:  }
+
+#    LATEX CLASS OPTIONS
+# [bigger]
+# [presentation]
+# [handout] : print handouts, i.e. slides with overlays will be printed with
+#   all overlays turned on (no animations).
+# [notes=show] : show notes in the generated output (note pages follow the real page)
+# [notes=only] : only render the nodes pages
+
+# this setting affects whether the initial PSI picture correctly fills
+# the title page, since it scales the title text. One can also use the
+# notes=show or notes=only options to produce notes pages in the output.
+# #+LaTeX_CLASS_OPTIONS: [t,10pt,notes=show]
+
+#+LaTeX_CLASS_OPTIONS: [t,10pt]
+#+LaTeX_HEADER: \lstset{basicstyle=\scriptsize\ttfamily}
+
+* Literate Programming Document Example in emacs org mode
+
+** Shell Script
+
+Shell script example. This is an example of a shell script that heavily utilizes variables, and is nicely formatted with shebang, module block, variable block, and commands seperated by "#"s.
+
+#+BEGIN_SRC sh :results code
+#########################
+#!/usr/bin/env sh
+#########################
+
+######################
+##Modules
+##module load something
+######################
+
+########################
+##Variables
+input_dir=input
+out_dir=output
+##input/output files arrays
+files=(`ls ${input_dir} | grep sh$`)
+out_files=(`echo ${files[@]} | sed s/sh/pl/g`)
+
+##parameter expansion
+##parameter/patten/string
+input_with_path=( "${files[@]/#/${input_dir}/}" )
+output_with_path=( "${out_files[@]/#/${out_dir}/}" )
+########################
+
+########################
+##commands
+##make the output dir
+mkdir -p ${out_dir}
+
+##for loop
+##use length to iterate in order to index input output arrays
+for ((i=0; i<${#input_with_path[@]}; i++)); do
+
+    echo ${i}
+
+    echo cp ${input_with_path[${i}]} ${output_with_path[${i}]} 
+
+done
+######################
+#+END_SRC
+
+  

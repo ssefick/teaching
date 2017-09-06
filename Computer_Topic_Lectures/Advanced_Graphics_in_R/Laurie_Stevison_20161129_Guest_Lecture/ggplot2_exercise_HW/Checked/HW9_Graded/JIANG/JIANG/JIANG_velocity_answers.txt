@@ -1,0 +1,4 @@
+Questions1. Does velocity vary with time?
+Yes, the velocity of all the six blocks fluctuate over time.2. Does velocity vary among blocks?
+Yes. First, the models are different among blocks. For example, the models of block A and F are the same, while A and C are different. Second, during every time point, the velocity are different among blocks. For example, block A are much higher than C during very time point.3. There was a rain event during the experiment. When was this? (HINT: uniform increase in velocity at all blocks)
+Based on the figure, the rain event should be on Nov 27th. Since in all blocks, the velocity increased during the time point Nov 27.

@@ -1,0 +1,38 @@
+#+OPTIONS: ^:{}
+* Grading Rubric (6 total points)
+- Plot_5 (1.67) - Histogram faceted
+- Plot_6_cyl_and_gears (1.67) - 2 plots cyl and gears versus mpg
+- Not included; Sefick Typo; However either 6 or 7 accepted
+- /Plot_7 linear model smooth - Deprecated/
+- Plot_15 (1.67) - linear smoothing
+- Plot_17 (1.67) - gridded facet_grid(gear~am) with cyl as color
+- Timseries Plot (1.67)
+- Questions (0.56/per)
+* Grades
+** Alenzi (8.32/10.03)
+- no questions answered in alenzi_velocity_answers.txt (all other student generated text files searched; -1)
+** Beaty (10.03/10.03)
+** Brown (8.32/10.03)
+- Brown_velocity_answers.txt contains answers to Ex1 not Ex2 (all other student generated text files searched; -1)
+** Clark (9.195/10.03)
+- plot_15 not colored by transmission type (not included in code; -0.835)
+** Dalis (10.03/10.03)
+** Davis (10.03/10.03)
+** Gardner (10.03/10.03)
+** Jiang (10.03/10.03)
+** Khan (10.03/10.03)
+- Only 1 graph for 5 (no gears; However in code)
+** Lang (10.03/10.03)
+** Mazzola (10.03/10.03)
+- missing plot 15 CODE written Incorrectly (one more "(" infront of am)
+** Naranjo (10.03/10.03)
+** Newton (10.03/10.03)
+** Powers (10.03/10.03)
+** Seo (10.03/10.03)
+** Sipley (9.195/10.03)
+- only 1 (cyl) plot for plot_5 (no code for gears; student code searched; -0.835)
+** Thompson (10.03/10.03)
+** Wang (10.03/10.03)
+** Watkins (9.195/10.03)
+- only 1 boxplot 6 (transmission type; code searched -0.5)
+** Westfall (10.03/10.03)

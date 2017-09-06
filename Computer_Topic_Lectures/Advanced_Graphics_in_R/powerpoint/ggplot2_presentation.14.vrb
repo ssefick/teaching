@@ -1,0 +1,5 @@
+\frametitle{qplot}
+\begin{verbatim}
+qplot(x, y, data=df)
+\end{verbatim}
+\includegraphics[width=7cm,height=7cm]{./plot.png}

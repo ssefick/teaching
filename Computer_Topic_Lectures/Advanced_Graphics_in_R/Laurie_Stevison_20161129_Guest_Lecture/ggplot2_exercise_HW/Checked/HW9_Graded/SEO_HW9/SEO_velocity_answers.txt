@@ -1,0 +1,14 @@
+SEO_Ex1 answers
+#10; No. It shows both hp and mpg have a negative relationship, but not linear.
+#13; Even though the x and y intercept is not shown in both plots, the intercepts is different from each other because of the angle of slopes.
+#14; Nope.
+#16; Both could be okay.
+
+
+SEO_Ex2 answers
+1. Does velocity vary with time?
+Yes. The velocity varies
+2. Does velocity vary among blocks?
+Yes. The velocity varies among blocks.
+3. There was a rain event during the experiment. When was this? 
+During 11.20. and 11.27, the rain event occured.

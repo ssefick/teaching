@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-14 Mon 09:01 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Emacs: Advanced graphics in R using ggplot2</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Stephen A. Sefick" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Emacs: Advanced graphics in R using ggplot2</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline3">1. 1) Using ggplot2</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Background</a></li>
+<li><a href="#orgheadline2">1.2. Exercise</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline8">2. 2) Time Series - Experiment Sandy Creek</a>
+<ul>
+<li><a href="#orgheadline4">2.1. Background</a></li>
+<li><a href="#orgheadline6">2.2. Column Description</a>
+<ul>
+<li><a href="#orgheadline5">2.2.1. Questions</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline7">2.3. Exercise</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> 1) Using ggplot2</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Background</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+In this exercise, you will explore a dataset that is included with R by making a variety of graphs using the ggplot2 package inside of R studio. Specificaly, we will investigate how a number of variables affect miles per gallon (mpg).
+</p>
+
+<p>
+Explaination of the mtcars data:
+The data was extracted from the 1974 <span class="underline">Motor Trend</span> US magazine,and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models) (From: ?mtcars).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Exercise</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li><p>
+Install ggplot2 and grid.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R" id="orgsrcblock1">install.packages(c("ggplot2", "grid"))
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>The online documentation for ggplot2 is: <a href="http://docs.ggplot2.org/current">\color{blue}{ggplot2}</a></li>
+</ul></li>
+
+<li><p>
+Load the ggplot2 package and the mtcars data.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">library(ggplot2)
+data(mtcars)
+</pre>
+</div></li>
+
+<li><p>
+Look at the transmission type column (am). Now, change transmission type to a more intuitive coding.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">mtcars[mtcars$am==1,"am"] &lt;- "automatic" 
+mtcars[mtcars$am==0,"am"] &lt;- "manual"
+</pre>
+</div></li>
+
+<li><p>
+In order to access how the data might be distributed, make a histogram of mpg, and color it by transmission type.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">qplot(mpg, data=mtcars, geom="histogram", bins=5, fill=am, col=am)
+</pre>
+</div></li>
+
+<li><p>
+Make 2 boxplots to explore the effect of number of gears and cylendars on mpg. Use the <b>geom</b> argument. Use the theming system to change the default look of ggplot2. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">#Theming system example. See the documentation for more information
+qplot(1:10, 1:10, geom="boxplot")+theme_bw()
+</pre>
+</div>
+<ul class="org-ul">
+<li>Maybe it would</li>
+</ul></li>
+
+<li><p>
+We might be interested in whether automatic and manual transmission have the same relationships. You want to use the facet\<sub>wrap</sub>() functionality. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">#Theming system example. See the documentation for more information
+your_plot+facet_wrap(~am)
+</pre>
+</div></li>
+
+<li>Make a scatterplot to explore the relationship of horsepower and miles per gallon.</li>
+
+<li>Explore this relationship with transmission included as a facet.</li>
+
+<li><p>
+Use a smoother to explore this relationship. Specifically, use a lowess smoothing line.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">#Theming system example. See the documentation for more information
+your_plot+facet_wrap(~am)+geom_smooth()
+</pre>
+</div></li>
+
+<li>What does the lowess smoother suggest about the data?</li>
+<li>Do these data suggest a linear or some other type of relationship? (HINT: lowess is a locally weighted <b>Polynomial</b>)</li>
+<li>Everything else being <b>equal</b>, and assuming you want to optimize <b>mpg</b>. What type of transmission would you choose?</li>
+
+<li><p>
+Since this data is multivariate, use geom\<sub>grid</sub>() the relationship of hp with mpg but also adding the information of gear, transmission, and number of cylendars.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">mpg_hp_gear_trans_cyl &lt;- qplot(hp, mpg, data=mtcars, geom="blank")+facet_grid(gear~am)+geom_smooth(method="lm")+geom_point(aes(color=as.factor(cyl)))
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">2</span> 2) Time Series - Experiment Sandy Creek</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.1</span> Background</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+The data come from an experiment that I ran in 2013 in a creek near Waverly, AL. I used velocity (random slope) nested within block (random intercept) in a mixed model framework. I did this to statistically account for differences in velocity within block. This dataset has 3 columns.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">2.2</span> Column Description</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li><b>date</b> is date of velocity measurement</li>
+<li><b>block</b> is experimental block</li>
+<li><b>velocity</b> is mean velocity within a block</li>
+<li><b><i>Make a plot to investigate how velocity changes through time and block.</i></b></li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">2.2.1</span> Questions</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ol class="org-ol">
+<li>Does velocity vary with time?</li>
+
+<li>Does velocity vary among blocks?</li>
+
+<li>There was a rain event during the experiment. When was this?</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">2.3</span> Exercise</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li>Create a file named <b>Your\<sub>Name</sub>\<sub>time</sub>\<sub>series.R</sub></b> in the <b>Time\<sub>Series</sub></b> folder. Read in <b>experiment\<sub>velocity</sub>\<sub>time</sub>\<sub>series.csv</sub></b> to an object called vel\<sub>exp</sub></li>
+</ol>
+
+<div class="org-src-container">
+
+<pre class="src src-R" id="orgsrcblock2">#must change date into class Date in order to have qplot recognize as such.
+vel_exp &lt;- read.csv("experiment_velocity_time_series.csv")
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li><p>
+Add below code to change the date variable to a Date class. This will allow ggplot2 to “use” this information to plot a time series.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R" id="orgsrcblock3">#must change date into class Date in order to have qplot recognize as such.
+vel_exp$date &lt;- as.Date(vel_exp$date)
+</pre>
+</div></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>plot the data with qplot (e.g., qplot(x, y, &#x2026;))</li>
+
+<li>Use the col argument to color the lines by block</li>
+
+<li>Add a facet with facet<sub>wrap</sub>(~variable\<sub>of</sub>\<sub>interest</sub>)</li>
+
+<li>Explore the “theme-ing” system theme<sub>bw</sub>() or the custom theme that I have provided you.</li>
+</ol>
+<p>
+To have the custom theme usable you will have to source the file publication\<sub>ggplot2</sub>\<sub>theme.R</sub> with the source command.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R" id="orgsrcblock4">#must change date into class Date in order to have qplot recognize as such.
+source("publication_ggplot2_theme.R")
+</pre>
+</div>
+
+<ol class="org-ol">
+<li><p>
+Once you have arrived at a suitable graph save it as a pdf called name\<sub>ggplot2</sub>\<sub>time</sub>\<sub>series.pdf</sub> as you did before.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R" id="orgsrcblock5"> #must change date into class Date in order to have qplot recognize as such.
+pdf("name")
+your_ggplot2_plot_object
+dev.off
+</pre>
+</div></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>Please answer the questions posed above in a text file named name<sub>velocity</sub><sub>answers.txt</sub></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2016-11-16</p>
+<p class="author">Author: Stephen A. Sefick</p>
+<p class="date">Created: 2016-11-14 Mon 09:01</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

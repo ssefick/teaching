@@ -1,0 +1,33 @@
+library(ggplot2)
+data(mtcars)
+
+mtcars[mtcars$am==1,"am"] <- "automatic" 
+mtcars[mtcars$am==0,"am"] <- "manual"
+
+#histogram
+qplot(mpg, data=mtcars, geom="histogram", bins=5)+facet_wrap(~am)
+
+box_gear <- qplot(as.factor(gear), mpg, data=mtcars)+geom_boxplot()
+box_gear <- box_gear+facet_wrap(~am)+theme_bw()
+
+box_cyl <- qplot(as.factor(cyl), mpg, data=mtcars)+geom_boxplot()
+box_cyl <- box_cyl+facet_wrap(~am)+theme_bw()
+
+#what is the relationship between hp and mpg?
+mpg_hp_line_graph <- qplot(hp, mpg, data=mtcars)
+
+#this is with automatic and manual transmission. What happens if we break these data up by transmission type?
+mpg_hp_line_graph+facet_wrap(~am)
+
+#Neat graph, but doesn't tell us very much.
+mpg_hp_line_graph+geom_smooth()
+
+#let's make a single figure with 2 different regression lines to visually inspect these data to gain more insight into these relationships
+#lowess
+#mpg_hp_line_graph <- qplot(hp, mpg, data=mtcars, col=am)+geom_smooth()
+
+#lm
+mpg_hp_line_graph <- qplot(hp, mpg, data=mtcars, col=am)+geom_smooth(method="lm")
+
+#So let's bring is all together
+mpg_hp_gear_trans_cyl <- qplot(hp, mpg, data=mtcars, geom="blank")+facet_grid(gear~am)+geom_smooth(method="lm")+geom_point(aes(color=as.factor(cyl)))

@@ -1,0 +1,14 @@
+Mazzola_HW9
+
+Ex1 Questions:
+
+13. No, the intercepts appear to be different 
+14. Yes, the slope of the data seem to be similar 
+16. Based off of the results, for gas mileage versus hp, an automatic transmission is preferred 
+
+Ex2 Questions:
+
+1. Yes, velocity varies with time 
+2. Yes, velocity varies amongst blocks 
+3. 11/27/2013
+

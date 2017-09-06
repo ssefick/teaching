@@ -1,0 +1,363 @@
+% Created 2016-11-14 Mon 11:46
+\documentclass[t,10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\mode<beamer>{\usetheme{Madrid}}
+\hypersetup{colorlinks=true, linkcolor=blue}
+\AtBeginSection[]{\begin{frame}<beamer>\frametitle{Topic}\tableofcontents[currentsection]\end{frame}}
+\usetheme{Madrid}
+\author{Stephen A. Sefick}
+\date{2016-11-14}
+\title{Advanced Graphics in R}
+
+\hypersetup{
+ pdfauthor={Stephen A. Sefick},
+ pdftitle={Advanced Graphics in R},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 24.3.1 (Org mode 8.3.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+
+
+\section{Introduction}
+\label{sec:orgheadline9}
+
+\begin{frame}[label={sec:orgheadline1}]{The gramar of graphics}
+\begin{block}{Hadley Wickham PhD at Rice University}
+\end{block}
+\begin{block}{}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[label={sec:orgheadline2}]{Motivation for using Emacs}
+\begin{itemize}
+\item Many files represented as text
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[label={sec:orgheadline3}]{Informatic text files}
+\begin{block}{Data}
+\begin{itemize}
+\item most data is text
+\end{itemize}
+
+\vspace{0.25in}
+\end{block}
+
+\begin{block}{Software}
+\begin{itemize}
+\item Shell
+\item R
+\item Perl/Python
+\item Markdown (github)
+\item Many others
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[label={sec:orgheadline4}]{Motivation for using Emacs}
+\begin{itemize}
+\item Many files represented as text
+\item No focus change
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline5}]{No focus change}
+\begin{itemize}
+\item Less clicking more work! 
+\begin{itemize}
+\item (remember the hand?)
+\end{itemize}
+\end{itemize}
+\vspace{0.25in}
+\begin{itemize}
+\item Most work in 1 program
+\begin{itemize}
+\item same shortcuts etc.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline6}]{Motivation for using Emacs}
+\begin{itemize}
+\item Many file represented as text
+\item No focus change
+\item Highly Customizable
+\begin{itemize}
+\item package manager
+\item .emacs
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline7}]{Motivation for using Emacs}
+\begin{itemize}
+\item Many file represented as text
+\item No focus change
+\item Highly Customizable
+\begin{itemize}
+\item package manager
+\item .emacs
+\end{itemize}
+\item 1 set keyboard shortcuts
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:orgheadline8}]{Motivation for using Emacs}
+\begin{itemize}
+\item Many file represented as text
+\item No focus change
+\item Highly Customizable
+\begin{itemize}
+\item package manager
+\item .emacs
+\end{itemize}
+\item 1 set keyboard shortcuts
+\item \alert{Cross Platform}
+\end{itemize}
+\end{frame}
+
+
+\section{Using emacs to get work done}
+\label{sec:orgheadline18}
+
+\begin{frame}[label={sec:orgheadline10}]{Using emacs to get work done}
+\begin{itemize}
+\item Keyboard shortcuts
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline11}]{Keyboard shortcuts}
+\begin{block}{Disadvantages:}
+\begin{block}{Lots of them!!!}
+\vspace{0.25in}
+
+\vspace{0.25in}
+\end{block}
+\end{block}
+\begin{block}{Benefits:}
+\begin{block}{Hands do not leave the keyboard}
+\end{block}
+
+\begin{block}{Work similarly in all emacs modes}
+\vspace{0.25in}
+\end{block}
+\end{block}
+\begin{block}{Caveat: Productivity != Number of Shortcuts you know}
+\vspace{0.25in}
+\end{block}
+\begin{block}{Lots of cheatsheets for most major modes}
+\begin{itemize}
+\item \href{http://www.google.com}{Google}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,label={sec:orgheadline12}]{Keyboard shortcuts}
+ \begin{exampleblock}{Example}
+\begin{verbatim}
+C-x C-c hold Ctrl press x then hold Ctrl press c
+
+M-x hold Alt key press x
+\end{verbatim}
+\end{exampleblock}
+
+\begin{exampleblock}{Very Useful Sortcuts}
+\begin{verbatim}
+C-g - stop command ***STOP EMACS IN ITS TRACKS***
+
+C-x C-c - exits emacs
+C-x C-s - saves file
+C-x C-f - opens file
+C-x k - kills a buffer
+C-x 1 - single window
+C-x 2 - horizontal 2 pane
+C-x 3 - vertical 2 pane
+M-x - run command
+
+C-x o move between buffers
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile,label={sec:orgheadline13}]{Keyboard shortcuts}
+ \begin{exampleblock}{Text Editing}
+\begin{verbatim}
+C-f - forward 1 character
+C-b - bacward 1 character
+C-n - down 1 line
+C-p - up 1 line
+C-a - begining of line
+C-e - end of line
+
+C-space - set mark; select area
+C-w - cut
+M-w - copy
+C-y - paste
+\end{verbatim}
+\end{exampleblock}
+
+\begin{block}{\alert{MANY MANY MORE}}
+\end{block}
+\begin{block}{NOT \alert{NECESSARY} TO KNOW THEM ALL TO BE \alert{PRODUCTIVE}}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[label={sec:orgheadline14}]{Using emacs to get work done}
+\begin{itemize}
+\item Keyboard shortcuts
+\end{itemize}
+\vspace{0.25in}
+\begin{itemize}
+\item .emacs
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile,label={sec:orgheadline15}]{.emacs}
+ \begin{itemize}
+\item Linux/Unix \alert{Text} configuration file
+\end{itemize}
+\vspace{0.25}
+
+\begin{exampleblock}{.emacs}
+\begin{verbatim}
+;;--------------------------------------------------------------;;
+;;ESS R - assign <- to :
+(setq ess-smart-S-assign-key ";") 
+;;--------------------------------------------------------------;;
+
+;;--------------------------------------------------------------;;
+;;org-mode
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+;;--------------------------------------------------------------;;
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[label={sec:orgheadline16}]{Using emacs to get work done}
+\begin{itemize}
+\item Keyboard shortcuts
+\end{itemize}
+\vspace{0.25in}
+\begin{itemize}
+\item .emacs
+\end{itemize}
+\vspace{0.25in}
+\begin{itemize}
+\item Package Manager
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,label={sec:orgheadline17}]{Package manager}
+ \begin{itemize}
+\item MELPA \href{https://melpa.org/#/}{MELPA Package Manager}
+
+\item M-x list-packages
+\end{itemize}
+
+\begin{exampleblock}{.emacs}
+\begin{verbatim}
+;;--------------------------------------------------------------;;
+;;Added Sefick 20160525
+(require 'package) ;; You might already have this line
+(add-to-list 'package-archives
+     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(when (< emacs-major-version 24)
+     ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . 
+    "http://elpa.gnu.org/packages/")))
+(package-initialize) ;; You might already have this line
+;;--------------------------------------------------------------;;
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\section{Integrated Development Environments (IDE; Getting data analysis done!)}
+\label{sec:orgheadline21}
+
+\begin{frame}[label={sec:orgheadline19}]{IDEs}
+\begin{itemize}
+\item Program completion (generally)
+\end{itemize}
+\vspace{0.25in}
+\begin{itemize}
+\item interactive program building
+\begin{itemize}
+\item write in one window
+\item evaluate in another
+\end{itemize}
+\end{itemize}
+\vspace{0.25in}
+\begin{itemize}
+\item Knows language conventions
+\begin{itemize}
+\item autocomplete
+\item TABS!!!
+\end{itemize}
+\end{itemize}
+\vspace{0.25in}
+\begin{itemize}
+\item Syntax highlighting
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[label={sec:orgheadline20}]{Many others}
+\begin{itemize}
+\item Python
+\item Perl
+\item C
+\item Java
+\item etc., etc., etc.
+\end{itemize}
+\end{frame}
+
+
+\section{Conclusions}
+\label{sec:orgheadline22}
+
+\section{Test Slides}
+\label{sec:orgheadline24}
+
+\begin{frame}[label={sec:orgheadline23}]{What are CNTs?}
+\begin{columns}
+\begin{column}{0.6\columnwidth}
+\begin{block}{when? who?}
+\begin{itemize}[<+->]
+\item 1952 bla bla bla
+\item 1991 Dr. Sumio Iijima publishes ``Helical microtubules of graphitic carbon''
+\end{itemize}
+\end{block}
+\end{column}
+\includegraphics[width=.9\linewidth]{./emacs5-512.png}
+\end{frame}
+\end{document}

@@ -1,0 +1,360 @@
+#+TITLE: Using text Editors
+#+AUTHOR: Stephen A. Sefick
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+OPTIONS:   ^:nil
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME:
+#+latex_header: \mode<beamer>{\usetheme{Madrid}}
+#+BEAMER_THEME: Madrid
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+# #+LaTeX_CLASS_OPTIONS: [bigger]
+
+
+# #######################################################################
+# #WooHoo! Text highlighting of source blocks!!!
+# #+LATEX_HEADER: \lstset{
+# #+LATEX_HEADER:         keywordstyle=\color{blue},
+# #+LATEX_HEADER:         commentstyle=\color{red},
+# #+LATEX_HEADER:         stringstyle=\color{orange},
+# #+LATEX_HEADER:         identifierstyle=\color{orange},
+# #+LATEX_HEADER:         otherkeywords={ls, grep, wd},
+# #+LATEX_HEADER:         otherkeywords={ls, grep, wd},
+# #+LATEX_HEADER:         basicstyle=\ttfamily\small,
+# #+LATEX_HEADER:         columns=fullflexible,
+# #+LATEX_HEADER:         basewidth={0.5em,0.4em}
+# #+LATEX_HEADER:         }
+# #+LATEX_HEADER: \RequirePackage{fancyvrb}
+# #+LATEX_HEADER: ##\DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\small,formatc##om = {\color[rgb]{0.5,0,0}}}
+# #######################################################################
+
+#+LATEX_HEADER: \lstset{
+#+LATEX_HEADER:    language=sh,
+#+LATEX_HEADER:    otherkeywords={=, +, [, ], (, ), \{, \}, *, $},
+#+LATEX_HEADER: emph={addgroup,adduser,alias,ant,apropos,apt-get,aptitude,aspell,awk,basename,bash,bc,bg,break,builtin,bzip2,cal,case,cat,cd,cfdisk,chgrp,chkconfig,chmod,chown,chroot,cksum,clear,cmp,comm,command,continue,cp,cron,crontab,csplit,cut,date,dc,dd,ddrescue,declare,df,diff,diff3,    dig,dir,dircolors,dirname,dirs,dmesg,du,echo,egrep,eject,enable,env,    ethtool,eval,exec,exit,expand,expect,export,expr,false,fdformat,    fdisk,fg,fgrep,file,find,fmt,fold,for,format,free,fsck,ftp,function,    fuser,gawk,getopts,    git,    grep,groups,gzip,    gunzip,    ,hash,head,help,history,hostname,    id,if,ifconfig,ifdown,ifup,import,install,    java, java6, java_cur    join,kill,killall,    let,ln,local,locate,logname,logout,look,lpc,lpr,lprint,lprintd,    lprintq,lprm,ls,lsof,make,man,mkdir,mkfifo,mkisofs,mknod,mmv,more,    mount,mtools,mtr,mv,    mysql,    netstat,nice,nl,nohup,notify-send,    noweb,noweave,    nslookup,op,    open,passwd,paste,pathchk,ping,pkill,popd,pr,printcap,printenv,    printf,ps,pushd,pwd,quota,quotacheck,quotactl,ram,rcp,read,    readarray,readonly,reboot,remsync,rename,renice,return,rev,rm,rmdir,    rsync,scp,screen,sdiff,sed,select,seq,set,sftp,shift,shopt,shutdown,    sleep,slocate,sort,source,split,ssh,strace,su,sudo,sum,    svn, svn2git,    symlink,sync,    tail,tar,tee,test,time,times,top,touch,tr,traceroute,trap,true,    tsort,tty,type,ulimit,umask,umount,unalias,uname,unexpand,uniq,    units,    unrar,    unset,unshar,until,useradd,usermod,users,uudecode,uuencode,    vdir,vi,vmstat,watch,wc,Wget,whereis,which,while,who,whoami,write,    zcat},
+#+LATEX_HEADER:    breaklines=true,
+#+LATEX_HEADER:    keywordstyle=\color{blue},
+#+LATEX_HEADER:    stringstyle=\color{red},
+#+LATEX_HEADER:    emphstyle=\color{black}\bfseries,
+#+LATEX_HEADER:    commentstyle=\color{gray}\slshape
+#+LATEX_HEADER:  }
+
+
+#    LATEX CLASS OPTIONS
+# [bigger]
+# [presentation]
+# [handout] : print handouts, i.e. slides with overlays will be printed with
+#   all overlays turned on (no animations).
+# [notes=show] : show notes in the generated output (note pages follow the real page)
+# [notes=only] : only render the nodes pages
+
+# this setting affects whether the initial PSI picture correctly fills
+# the title page, since it scales the title text. One can also use the
+# notes=show or notes=only options to produce notes pages in the output.
+# #+LaTeX_CLASS_OPTIONS: [t,10pt,notes=show]
+
+
+#+LaTeX_CLASS_OPTIONS: [t,10pt]
+
+
+#+BEAMER_FRAME_LEVEL: 2
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+# I want to define a style for hyperlinks
+#+LATEX_HEADER: \hypersetup{colorlinks=true, linkcolor=blue}
+
+# This line inserts a table of contents with the current section highlighted at
+# the beginning of each section
+#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Topic}\tableofcontents[currentsection]\end{frame}}
+
+# export second level headings as beamer frames. All headlines below
+# the org-beamer-frame-level (i.e. below H value in OPTIONS), are
+# exported as blocks
+#+OPTIONS: H:2
+
+
+#+BEAMER_HEADER: \titlegraphic{\vspace{0.75in}\includegraphics[width=0.5\textwidth,height=.1\textheight]{figures/comb_2.png}}
+#+LaTeX_HEADER: \lstset{basicstyle=\tiny\ttfamily}
+
+
+* COMMENT Some remarks on options
+  - [[info:org#Export%20settings][info:org#Export settings]]
+  - The H:2 setting in the options line is important for setting the
+    Beamer frame level. Headlines will become frames when their level
+    is equal to =org-beamer-frame-level=.
+  - ^:{} interpret abc_{subs} as subscript, but not abc_subs
+  - num:t configures whether to use section numbers. If set to a number
+    only headlines of this level or above will be numbered
+  - ::t defines that lines starting with ":" will use fixed width font
+  - |:t include tables in export
+  - -:t Non-nil means interpret "\-", "--" and "---" for export.
+  - f:t include footnotes
+  - *:t Non-nil means interpret
+    : *word*, /word/, _word_ and +word+.
+  - <:t toggle inclusion of timestamps
+  - timestamp:t include a document creation timestamp into the exported file
+  - todo:t include exporting of todo keywords
+  - d:nil do not export org heading drawers
+  - tags:nil do not export headline tags
+    
+
+* Introduction
+** Motivation
+#+ATTR_BEAMER: :overlay +-
+1) How to arrive at analysis ready variants?
+2) GATK HaplotypeCaller is "permissive"
+   - False Positives
+3) How to separate True/False Positives
+   - classification/machine learning
+   - *filtering*
+   - both
+4) What software to use?
+   - [[https://cran.r-project.org/][R]]
+   - [[https://bioconductor.org/][Bioconductor Project]]
+
+** Bioconductor
+#+ATTR_BEAMER: :overlay +-
+1) CRAN
+2) Bioconductor- additional software repository
+3) "Open Source Software For Bioinformatics"
+   - DNA micro-array
+   - sequence
+   - SNP
+   - etc.
+4) started 2001
+5) 1294 user contributed packages
+
+** Bioconductor Packages
+#+ATTR_BEAMER: :overlay +-
+1) Installation similar to CRAN packages (*automatic dependency resolution*)
+   - Install/update Bioconductor
+     - source("https://bioconductor.org/biocLite.R")
+     - biocLite()
+   - Install packages
+     - biocLite("VariantAnnotation")
+2) Documentation familiar and excellent
+3) In addition, most packages have vignettes
+   - Vignettes are short "how-tos"
+4) Most object oriented providing consistent "feel" for bioconductor packages
+   - CRAN mix of no OO, S3, S4, and newer R6
+   - Flexibility is R's strength and weakness
+5) https://bioconductor.org/
+
+
+* VCF Annotations
+** GATK Haplotype Caller Annotations
+#+ATTR_BEAMER: :overlay +-
+1) HaplotypeCaller includes/calculates annotations
+   - VCFs have a number of annotations
+     - e.g., genotype quality, depth, etc.
+2) Annotations change
+   - e.g., HaplotypeCaller's gVCFs with Reference Genotype Quality
+   - [[https://software.broadinstitute.org/gatk/documentation/tooldocs/current/org_broadinstitute_gatk_tools_walkers_annotator_VariantAnnotator][Custom annotations]]
+3) How do we use annotations?
+   - understanding the data
+   - filtering
+   - classification/machine learning
+4) Non-model systems analysis ready variants
+   - hard-filtered call set
+   - Bootstrapped Variant Quality Score Re-calibration (VQSR) call set using HF as training/truth data
+5) Today concentrate on hard-filtering SNPs
+
+** Hard-filtering
+#+ATTR_BEAMER: :overlay +-
+1) Context specific
+   - SNPs
+   - INDELs
+2) GATK hard-filtering recommendations
+3) These are *recommendations*, developed with *human* data, and might/likely will need to be modified based on the data
+#+Beamer: \only<5>{
+|-----------+---+----------------+---------------------------------|
+| *Variant* | # | *Annotation*   | *Remove If*                     |
+|-----------+---+----------------+---------------------------------|
+| *Both*    | 1 | DP             | min=empirical; max=5 or 6 sigma |
+|           | 2 | GQ (or RGQ)    | empirical                       |
+|-----------+---+----------------+---------------------------------|
+| *SNP*     | 3 | QD             | < 2.0                           |
+|           | 4 | MQ             | < 40                            |
+|           | 5 | FS             | > 60                            |
+|           | 6 | SOR            | > 3.0                           |
+|           | 7 | MQRankSum      | < -12.5                         |
+|           | 8 | ReadPosRankSum | < -8.0                          |
+|-----------+---+----------------+---------------------------------|
+#+Beamer: }
+
+** 1 Depth (DP) - Depth of coverage 
+#+ATTR_BEAMER: :overlay +-
+1) Min - no empirical guidance- look at plots
+2) Max - 5 or 6x the standard deviation 
+3) How many reads cover a position
+   - GATK Caveat- slightly different from *raw* depth of coverage
+   - QC of the caller will remove reads (MAQ)
+
+** 1 Depth (DP) - Depth of coverage 
+\vspace{-15.5pt}
+*** Mitochondria 						      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+#+ATTR_LaTeX: :width 6cm :height 6cm
+[[file:figures/chrM/document-page7.png]]
+*** Chr1-20 and X 						      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+#+ATTR_LaTeX: :width 6cm :height 6cm
+[[file:figures/NO_chrM/document-page7.png]]
+
+
+** 2 Genotype quality (GQ); Reference GQ (RGQ)
+1) Phred scaled probability of incorrect genotype
+   - 20 - 0.01; 30 - 0.001; 40 - 0.0001
+\vspace{-15.5pt}
+*** Mitochondria 						      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+#+ATTR_LaTeX: :width 6cm :height 6cm
+[[file:figures/chrM/document-page6.png]]
+*** Chr1-20 and X 						      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+#+ATTR_LaTeX: :width 6cm :height 6cm
+[[file:figures/NO_chrM/document-page6.png]]
+
+
+
+** 3 Variant quality/allele depth (QD)
+1) Variant Quality (QUAL) is the phred scaled probability that the variant is wrong.
+2) allele depth is actual depth of each observed allele (How many actual reads; in contrast to *DP*).
+#+Beamer: \only<1>{
+[[file:figures/Annotations_VQSR_GATK/ann_graphs/QD_ann.png]] 
+#+Beamer: }\only<2>{
+[[file:figures/Annotations_VQSR_GATK/ann_graphs/QD_VQSR_ann.png]]   
+#+Beamer: }
+
+** 4 Root mean square mapping quality (MQ)
+1) phred scaled probability that the mapping position is wrong
+#+Beamer: \only<1>{
+[[file:figures/Annotations_VQSR_GATK/ann_graphs/MQ_ann.png]]   
+#+Beamer: }\only<2>{
+[[file:figures/Annotations_VQSR_GATK/ann_graphs/MQ_VQSR_ann.png]]   
+#+Beamer: }
+
+** 5 Fisher strand bias (FS)
+1) phred scaled probability ALT on forward or reverse strand more or less than REF
+#+Beamer: \only<1>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/FS_ann.png]]
+#+Beamer: }\only<2>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/FS_VQSR_ann.png]]
+#+Beamer: }
+
+** 6 Strand odds ratio (SOR)
+1) similar to FS, but updated for high coverage (NGS)   
+   - Ratio of reads that cover both alleles
+#+Beamer: \only<1>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/SOR_ann.png]]
+#+Beamer: }\only<2>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/SOR_VQSR_ann.png]]
+#+Beamer: }
+
+** 7 MQ rank sum test (MQRankSum)
+1) test compares MAQ ALT to REF
+   - (-) Alt lower MAQ
+   - (+) Ref lower MAQ
+#+Beamer: \only<1>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/MQRankSum_ann.png]]
+#+Beamer: }\only<2>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/MQRankSum_VQSR_ann.png]]
+#+Beamer: }
+
+** 8 Read position rank sum test (ReadPosRankSum)
+1) test for positional effects 
+   - (-) Alt close to end of read
+   - (+) Ref close to end of read
+#+Beamer: \only<1>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/ReadPosRankSum_ann.png]]
+#+Beamer: }\only<2>{ 
+[[file:figures/Annotations_VQSR_GATK/ann_graphs/ReadPosRankSum_VQSR_ann.png]]
+#+Beamer: }
+
+** Hard-filtering Summary (SNPs and INDELS) 
+|-----------+--------------------------------+---------------------------------|
+| *Variant* | *Annotation*                   | *Remove If*                     |
+|-----------+--------------------------------+---------------------------------|
+| *Both*    | DP                             | min=empirical; max=5 or 6 sigma |
+|           | GQ (or RGQ)                    | empirical                       |
+|-----------+--------------------------------+---------------------------------|
+| *SNP*     | QD                             | < 2.0                           |
+|           | MQ                             | < 40                            |
+|           | FS                             | > 60                            |
+|           | SOR                            | > 3.0                           |
+|           | MQRankSum                      | < -12.5                         |
+|           | ReadPosRankSum                 | < -8.0                          |
+|-----------+--------------------------------+---------------------------------|
+| *INDELs*  | QD                             | < 2.0                           |
+|           | ReadPosRankSum                 | < -20.0                         |
+|           | InbreedingCoeff (> 10 samples) | < -8.0                          |
+|           | FS                             | < 200.0                         |
+|           | SOR                            | > 10.0                          |
+|-----------+--------------------------------+---------------------------------|
+
+
+* Using R/Bioconductor to filter vcf
+** Variant Annotation
+#+ATTR_BEAMER: :overlay +-
+1) Could write a script in favorite language. 
+   - Know exactly what you did (+)
+   - Time spent engineering software (-)
+2) Hard Work already done
+   - Bioconductor
+   - [[https://bioconductor.org/packages/release/bioc/html/VariantAnnotation.html][VariantAnnotation]] 
+     - general parsing and filtering
+3) Consistent interface
+   - Learn 1 piece of software and reuse
+4) Custom filters
+   - flexible annotations (e.g., RGQ)
+   - New annotations just "*show up*"
+* Exercise (HW 7)
+** Extract, Filter, and Plot
+1) Exercise folder on asc
+   - Scripts: 1_initial_annotation_plot.sh; 2_filter_and_plot.sh
+   - Data: D_PseudoFS14_16
+   - [[https://github.com/ssefick/UsefulBioinformaticScripts][UsefulBioinformaticScripts]]
+2) Edit "Variables" in 1_initial_annotation_plot.sh
+   #+BEGIN_SRC sh
+script_dir=${HOME}/Exercise/UsefulBioinformaticScripts           
+data_dir=${HOME}/Exercise/D_PseudoFS14_16
+out_dir=${HOME}/Exercise  
+   #+END_SRC
+
+3) save script and run
+4) Inspect graphs and decide upon filtering thresholds
+5) add variable definitions in *2* to 2_filter_and_plot.sh
+6) Edit
+   #+BEGIN_SRC sh
+#################################################################################  
+##Filtering Parameters                                                             
+##this is                                                                          
+${script_dir}/filter_SNPs_GATK_hard_filter.CHUNKS.R -I ${out_dir}/${vcf1}.gz -T    
+${out_dir}/${vcf1}.gz.tbi -O ${out_dir}/${vcf1}.filtered.vcf -C 10000 --QD=2       
+--FS=60 --SOR=3 --MQRankSum=-8 --min_Depth=4 --max_Depth=32 --Genotype_Quality=20  
+           
+${script_dir}/filter_SNPs_GATK_hard_filter.CHUNKS.R -I ${out_dir}/${vcf2}.gz -T    
+${out_dir}/${vcf2}.gz.tbi -O ${out_dir}/${vcf2}.filtered.vcf -C 10000 --QD=2       
+--FS=60 --SOR=3 --MQRankSum=-8 --min_Depth=4 --max_Depth=32 --Genotype_Quality=20  
+   #+END_SRC
+7) save script and run
+8) inspect graphs and write up.

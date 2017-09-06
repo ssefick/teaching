@@ -1,0 +1,47 @@
+Home Work 9 
+
+#Exercise 1
+
+Question 10. 
+
+Do these data suggest a linear or some other type of relationship?
+No
+
+Is this relationship linear now?
+No, not linear
+
+Question 13. 
+
+Does the intercept look the same?
+No
+
+Question 14. 
+
+Does the slope look the same?
+Yes
+
+Question 16. 
+
+Everything else being equal, and assuming you want to optimize mpg.
+What type of transmission would you choose?
+automatic
+
+
+
+#Exercise 2
+
+Question 1. 
+
+Does velocity vary with time?
+Yes
+
+Question 2. 
+
+Does velocity vary among blocks?
+Yes
+
+Question 3. 
+
+There was a rain event during the experiment. When was this? (HINT:
+uniform increase in velocity at all blocks)
+2013-11-27(Nov27)

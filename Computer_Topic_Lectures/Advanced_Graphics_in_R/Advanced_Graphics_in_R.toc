@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}1) Using ggplot2}{1}{section.1}
+\contentsline {subsection}{\numberline {1.1}Background}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Exercise}{1}{subsection.1.2}
+\contentsline {section}{\numberline {2}2) Time Series - Experiment Sandy Creek}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Background}{3}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Column Description}{3}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Questions}{3}{subsubsection.2.2.1}
+\contentsline {subsection}{\numberline {2.3}Exercise}{3}{subsection.2.3}

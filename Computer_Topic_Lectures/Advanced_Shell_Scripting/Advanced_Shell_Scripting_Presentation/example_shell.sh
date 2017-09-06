@@ -1,0 +1,41 @@
+#########################
+#!/usr/bin/env sh
+#########################
+
+######################
+##Modules
+##module load something
+######################
+
+########################
+##Variables
+input_dir=input
+out_dir=output
+##input/output files arrays
+files=(`ls ${input_dir} | grep sh$`)
+out_files=(`echo ${files[@]} | sed s/sh/pl/g`)
+
+##parameter expansion
+##parameter/patten/string
+input_with_path=( "${files[@]/#/${input_dir}/}" )
+output_with_path=( "${out_files[@]/#/${out_dir}/}" )
+########################
+
+########################
+##commands
+##make the output dir
+mkdir -p ${out_dir}
+
+##for loop
+##use length to iterate in order to index input output arrays
+for ((i=0; i<${#input_with_path[@]}; i++)); do
+
+    echo ${i}
+
+    echo cp ${input_with_path[${i}]} ${output_with_path[${i}]} 
+
+done
+######################
+
+
+

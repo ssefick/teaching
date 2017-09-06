@@ -1,0 +1,299 @@
+#+TITLE: Getting Genomics Done with R
+#+AUTHOR: Stephen A. Sefick
+#+DATE: 2017-03-28
+#+EMAIL: ssefick@auburn.edu
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME:
+#+latex_header: \mode<beamer>{\usetheme{Madrid}}
+#+BEAMER_THEME: Madrid
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+# #+LaTeX_CLASS_OPTIONS: [bigger]
+
+
+#    LATEX CLASS OPTIONS
+# [bigger]
+# [presentation]
+# [handout] : print handouts, i.e. slides with overlays will be printed with
+#   all overlays turned on (no animations).
+# [notes=show] : show notes in the generated output (note pages follow the real page)
+# [notes=only] : only render the nodes pages
+
+# this setting affects whether the initial PSI picture correctly fills
+# the title page, since it scales the title text. One can also use the
+# notes=show or notes=only options to produce notes pages in the output.
+# #+LaTeX_CLASS_OPTIONS: [t,10pt,notes=show]
+
+#+LaTeX_CLASS_OPTIONS: [t,10pt]
+
+
+#+BEAMER_FRAME_LEVEL: 2
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+# I want to define a style for hyperlinks
+#+LATEX_HEADER: \hypersetup{colorlinks=true, linkcolor=blue}
+
+# This line inserts a table of contents with the current section highlighted at
+# the beginning of each section
+#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Topic}\tableofcontents[currentsection]\end{frame}}
+
+# export second level headings as beamer frames. All headlines below
+# the org-beamer-frame-level (i.e. below H value in OPTIONS), are
+# exported as blocks
+#+OPTIONS: H:2
+
+
+#+BEAMER_HEADER: \titlegraphic{\vspace{0.75in}\includegraphics[width=0.5\textwidth,height=.1\textheight]{figures/comb_2.png}}
+#+LaTeX_HEADER: \lstset{basicstyle=\scriptsize\ttfamily}
+
+
+* COMMENT Some remarks on options
+  - [[info:org#Export%20settings][info:org#Export settings]]
+  - The H:2 setting in the options line is important for setting the
+    Beamer frame level. Headlines will become frames when their level
+    is equal to =org-beamer-frame-level=.
+  - ^:{} interpret abc_{subs} as subscript, but not abc_subs
+  - num:t configures whether to use section numbers. If set to a number
+    only headlines of this level or above will be numbered
+  - ::t defines that lines starting with ":" will use fixed width font
+  - |:t include tables in export
+  - -:t Non-nil means interpret "\-", "--" and "---" for export.
+  - f:t include footnotes
+  - *:t Non-nil means interpret
+    : *word*, /word/, _word_ and +word+.
+  - <:t toggle inclusion of timestamps
+  - timestamp:t include a document creation timestamp into the exported file
+  - todo:t include exporting of todo keywords
+  - d:nil do not export org heading drawers
+  - tags:nil do not export headline tags
+    
+
+* Introduction
+** Motivation
+#+ATTR_BEAMER: :overlay +-
+1) How to arrive at analysis ready variants?
+2) GATK HaplotypeCaller is "permissive"
+   - False Positives
+3) How to separate True/False Positives
+   - classification/machine learning
+   - *filtering*
+   - both
+4) What software to use?
+   - R https://cran.r-project.org/
+   - Bioconductor Project https://bioconductor.org/
+
+** Bioconductor
+#+ATTR_BEAMER: :overlay +-
+1) CRAN
+2) Bioconductor- additional software repository
+3) "Open Source Software For Bioinformatics"
+   - DNA micro-array
+   - sequence
+   - SNP
+   - etc.
+4) started 2001
+5) 1294 user contributed packages
+
+** Bioconductor Packages
+#+ATTR_BEAMER: :overlay +-
+1) Installation similar to CRAN packages (*automatic dependency resolution*)
+   - Install/update Bioconductor
+     - source("https://bioconductor.org/biocLite.R")
+     - biocLite()
+   - Install packages
+     - biocLite("VariantAnnotation")
+2) Documentation familiar and excellent
+3) In addition, most packages have vignettes
+   - Vignettes are short "how-tos"
+4) Most object oriented providing consistent "feel" for bioconductor packages
+   - CRAN is a mismatch of no OO, S3, S4, and newer R6
+   - This flexibility is one of the strengths and weaknesses of R generally
+5) https://bioconductor.org/
+
+
+* VCF Annotations
+** GATK Haplotype Caller Annotations
+#+ATTR_BEAMER: :overlay +-
+1) Haplotype caller includes/calculates annotations
+   - VCFs have a number of annotations
+     - e.g., genotype quality or depth
+   - gVCFs - Reference Genotype Quality
+2) How do we use annotations?
+   - understanding the data
+   - filtering
+   - classification/machine learning
+3) Non-model systems analysis ready variants
+   - hard-filtered call set
+   - Bootstrapped Variant Quality Score Re-calibration (VQSR) call set using HF as training/truth data
+4) Today concentrate on hard-filtering SNPs
+
+** Hard-filtering
+#+ATTR_BEAMER: :overlay +-
+1) Context specific
+   - SNPs
+   - INDELs
+2) GATK hard-filtering recommendations
+3) These are *recommendations*, and might/likely will need to be modified based on the data
+#+Beamer: \only<5>{
+|-----------+--------------------------------+---------------------------------|
+| *Variant* | *Annotation*                   | *Remove If*                     |
+|-----------+--------------------------------+---------------------------------|
+| *Both*    | DP                             | min=empirical; max=5 or 6 sigma |
+|           | GQ (or RGQ)                    | empirical                       |
+|-----------+--------------------------------+---------------------------------|
+| *SNP*     | QD                             | < 2.0                           |
+|           | MQ                             | < 40                            |
+|           | FS                             | > 60                            |
+|           | SOR                            | > 3.0                           |
+|           | MQRankSum                      | < -12.5                         |
+|           | ReadPosRankSum                 | < -8.0                          |
+|-----------+--------------------------------+---------------------------------|
+#+Beamer: }
+
+** Depth (DP) - Depth of coverage 
+#+ATTR_BEAMER: :overlay +-
+1) Might be slightly different than actual depth of coverage
+   - QC of the caller will remove reads (MAQ)
+2) How many "GOOD" reads
+3) min - no empirical guidance- look at plots
+4) max - 5 or 6x the standard deviation 
+
+** Depth (DP) - Depth of coverage 
+\vspace{-15.5pt}
+*** Mitochondria 						      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+#+ATTR_LaTeX: :width 6cm :height 6cm
+[[file:figures/chrM/document-page7.png]]
+*** Chr1-20 and X 						      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+#+ATTR_LaTeX: :width 6cm :height 6cm
+[[file:figures/NO_chrM/document-page7.png]]
+
+
+** Genotype quality (GQ); Reference GQ (RGQ)
+1) Phred scaled probability of incorrect genotype
+   - 20 - 0.01; 30 - 0.001; 40 - 0.0001
+\vspace{-15.5pt}
+*** Mitochondria 						      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+#+ATTR_LaTeX: :width 6cm :height 6cm
+[[file:figures/chrM/document-page6.png]]
+*** Chr1-20 and X 						      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+#+ATTR_LaTeX: :width 6cm :height 6cm
+[[file:figures/NO_chrM/document-page6.png]]
+
+
+
+** Variant quality/allele depth (QD)
+1) Variant Quality (QUAL) is the phred scaled probability that the variant is wrong.
+2) allele depth is actual depth of each observed allele (How many actual reads; in contrast to *DP*).
+#+Beamer: \only<1>{
+[[file:figures/Annotations_VQSR_GATK/ann_graphs/QD_ann.png]] 
+#+Beamer: }\only<2>{
+[[file:figures/Annotations_VQSR_GATK/ann_graphs/QD_VQSR_ann.png]]   
+#+Beamer: }
+
+** Root mean square mapping quality (MQ)
+1) phred scaled probability that the mapping position is wrong
+#+Beamer: \only<1>{
+[[file:figures/Annotations_VQSR_GATK/ann_graphs/MQ_ann.png]]   
+#+Beamer: }\only<2>{
+[[file:figures/Annotations_VQSR_GATK/ann_graphs/MQ_VQSR_ann.png]]   
+#+Beamer: }
+
+** Fisher strand bias (FS)
+1) phred scaled probability ALT on forward or reverse strand more or less than REF
+#+Beamer: \only<1>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/FS_ann.png]]
+#+Beamer: }\only<2>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/FS_VQSR_ann.png]]
+#+Beamer: }
+
+** Strand odds ratio (SOR)
+1) similar to FS, but accounts for the fact that reads at the end of exons are generally only covered by reads in 1 direction*
+   - Ratio of reads that cover both alleles
+#+Beamer: \only<1>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/SOR_ann.png]]
+#+Beamer: }\only<2>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/SOR_VQSR_ann.png]]
+#+Beamer: }
+
+** MQ rank sum test (MQRankSum)
+1) test compares MAQ ALT to REF
+#+Beamer: \only<1>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/MQRankSum_ann.png]]
+#+Beamer: }\only<2>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/MQRankSum_VQSR_ann.png]]
+#+Beamer: }
+
+** Read position rank sum test (ReadPosRankSum)
+1) test for positional effects 
+   - (-) Alt close to end of read
+   - (+) Ref close to end of read
+#+Beamer: \only<1>{
+ [[file:figures/Annotations_VQSR_GATK/ann_graphs/ReadPosRankSum_ann.png]]
+#+Beamer: }\only<2>{ 
+[[file:figures/Annotations_VQSR_GATK/ann_graphs/ReadPosRankSum_VQSR_ann.png]]
+#+Beamer: }
+
+** Hard-filtering Summary (SNPs and INDELS) 
+|-----------+--------------------------------+---------------------------------|
+| *Variant* | *Annotation*                   | *Remove If*                     |
+|-----------+--------------------------------+---------------------------------|
+| *Both*    | DP                             | min=empirical; max=5 or 6 sigma |
+|           | GQ (or RGQ)                    | empirical                       |
+|-----------+--------------------------------+---------------------------------|
+| *SNP*     | QD                             | < 2.0                           |
+|           | MQ                             | < 40                            |
+|           | FS                             | > 60                            |
+|           | SOR                            | > 3.0                           |
+|           | MQRankSum                      | < -12.5                         |
+|           | ReadPosRankSum                 | < -8.0                          |
+|-----------+--------------------------------+---------------------------------|
+| *INDELs*  | QD                             | < 2.0                           |
+|           | ReadPosRankSum                 | < -20.0                         |
+|           | InbreedingCoeff (> 10 samples) | < -8.0                          |
+|           | FS                             | < 200.0                         |
+|           | SOR                            | > 10.0                          |
+|-----------+--------------------------------+---------------------------------|
+
+
+* Using R/Bioconductor to filter vcf
+** Variant Annotation
+#+ATTR_BEAMER: :overlay +-
+1) Could write a script in favorite language. 
+   - Know exactly what you did (+)
+   - Time spent engineering software (-)
+2) Hard Work already done
+   - Bioconductor
+   - VariantAnnotation (*citation*)
+3) Consistent interface
+4) Custom filters
+   - flexible annotations (e.g., RGQ)
+
+
+* Exercise
+** References
+1) https://gatkforums.broadinstitute.org/firecloud/discussion/6925/understanding-and-adapting-the-generic-hard-filtering-recommendations
+

@@ -1,0 +1,3 @@
+1. Yes, velocity varies with time.
+2. Yes, velocity varies among the blocks, though some uniform trends can be identified.
+3. There was a uniform increase in velocity at all blocks in late November, likely corresponding to a rain event on 2013-11-27.

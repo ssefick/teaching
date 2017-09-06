@@ -1,0 +1,17 @@
+\frametitle{ggplot code}
+\begin{verbatim}
+#data
+library(ggplot2)
+library(reshape2)
+ct <- data.frame(cars = c(1, 3, 6, 4, 9), trucks = c(2, 5, 4, 5, 12), day=c(1:5))
+ct.melt <- melt(ct, id.var="day")
+
+#ggplot2
+p <- qplot(day, value, data=ct.melt, col=variable)
+p <- p+geom_line()
+p <- p+scale_x_continuous(labels=c("Mon", "Tue", "Wed", "Thu", "Fri"))
+p <- p+xlab("Days")
+p <- p+ylab("Total")
+p <- p+ggtitle("Autos")
+p
+\end{verbatim}

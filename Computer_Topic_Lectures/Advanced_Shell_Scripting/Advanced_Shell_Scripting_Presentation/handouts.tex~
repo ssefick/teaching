@@ -1,0 +1,94 @@
+% Created 2017-02-21 Tue 12:31
+\documentclass[t,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\lstset{
+language=sh,
+otherkeywords={=, +, [, ], (, ), \{, \}, *, $},
+emph={addgroup,adduser,alias,ant,apropos,apt-get,aptitude,aspell,awk,basename,bash,bc,bg,break,builtin,bzip2,cal,case,cat,cd,cfdisk,chgrp,chkconfig,chmod,chown,chroot,cksum,clear,cmp,comm,command,continue,cp,cron,crontab,csplit,cut,date,dc,dd,ddrescue,declare,df,diff,diff3,    dig,dir,dircolors,dirname,dirs,dmesg,du,echo,egrep,eject,enable,env,    ethtool,eval,exec,exit,expand,expect,export,expr,false,fdformat,    fdisk,fg,fgrep,file,find,fmt,fold,for,format,free,fsck,ftp,function,    fuser,gawk,getopts,    git,    grep,groups,gzip,    gunzip,    ,hash,head,help,history,hostname,    id,if,ifconfig,ifdown,ifup,import,install,    java, java6, java_cur    join,kill,killall,    let,ln,local,locate,logname,logout,look,lpc,lpr,lprint,lprintd,    lprintq,lprm,ls,lsof,make,man,mkdir,mkfifo,mkisofs,mknod,mmv,more,    mount,mtools,mtr,mv,    mysql,    netstat,nice,nl,nohup,notify-send,    noweb,noweave,    nslookup,op,    open,passwd,paste,pathchk,ping,pkill,popd,pr,printcap,printenv,    printf,ps,pushd,pwd,quota,quotacheck,quotactl,ram,rcp,read,    readarray,readonly,reboot,remsync,rename,renice,return,rev,rm,rmdir,    rsync,scp,screen,sdiff,sed,select,seq,set,sftp,shift,shopt,shutdown,    sleep,slocate,sort,source,split,ssh,strace,su,sudo,sum,    svn, svn2git,    symlink,sync,    tail,tar,tee,test,time,times,top,touch,tr,traceroute,trap,true,    tsort,tty,type,ulimit,umask,umount,unalias,uname,unexpand,uniq,    units,    unrar,    unset,unshar,until,useradd,usermod,users,uudecode,uuencode,    vdir,vi,vmstat,watch,wc,Wget,whereis,which,while,who,whoami,write,    zcat},
+breaklines=true,
+keywordstyle=\color{blue},
+stringstyle=\color{red},
+emphstyle=\color{black}\bfseries,
+commentstyle=\color{black}\slshape
+}
+\author{Stephen A. Sefick}
+\date{2017-02-23}
+\title{Literate programming and output}
+\hypersetup{
+ pdfauthor={Stephen A. Sefick},
+ pdftitle={Literate programming and output},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 24.5.1 (Org mode 8.3.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Literate Programming Document Example in emacs org mode}
+\label{sec:orgheadline2}
+
+\subsection{Output}
+\label{sec:orgheadline1}
+
+Shell script example. This is an example of a shell script that heavily utilizes variables, and is nicely formatted with shebang, module block, variable block, and commands seperated by "\#"s.
+
+\lstset{language=sh,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#########################
+#!/usr/bin/env sh
+#########################
+
+######################
+##Modules
+##module load something
+######################
+
+########################
+##Variables
+input_dir=input
+out_dir=output
+##input/output files arrays
+files=(`ls ${input_dir} | grep sh$`)
+out_files=(`echo ${files[@]} | sed s/sh/pl/g`)
+
+##parameter expansion
+##parameter/patten/string
+input_with_path=( "${files[@]/#/${input_dir}/}" )
+output_with_path=( "${out_files[@]/#/${out_dir}/}" )
+########################
+
+########################
+##commands
+##make the output dir
+mkdir -p ${out_dir}
+
+##for loop
+##use length to iterate in order to index input output arrays
+for ((i=0; i<${#input_with_path[@]}; i++)); do
+
+    echo ${i}
+
+    echo cp ${input_with_path[${i}]} ${output_with_path[${i}]} 
+
+done
+######################
+\end{lstlisting}
+\end{document}

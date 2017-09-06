@@ -1,0 +1,278 @@
+#+TITLE: Advanced Graphics in R
+#+AUTHOR: Stephen A. Sefick
+#+DATE: 2016-11-14
+#+EMAIL: ssefick@auburn.edu
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME:
+#+latex_header: \mode<beamer>{\usetheme{Madrid}}
+#+BEAMER_THEME: Madrid
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+# #+LaTeX_CLASS_OPTIONS: [bigger]
+
+
+#    LATEX CLASS OPTIONS
+# [bigger]
+# [presentation]
+# [handout] : print handouts, i.e. slides with overlays will be printed with
+#   all overlays turned on (no animations).
+# [notes=show] : show notes in the generated output (note pages follow the real page)
+# [notes=only] : only render the nodes pages
+
+# this setting affects whether the initial PSI picture correctly fills
+# the title page, since it scales the title text. One can also use the
+# notes=show or notes=only options to produce notes pages in the output.
+# #+LaTeX_CLASS_OPTIONS: [t,10pt,notes=show]
+
+#+LaTeX_CLASS_OPTIONS: [t,10pt]
+
+
+#+BEAMER_FRAME_LEVEL: 2
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+# I want to define a style for hyperlinks
+#+LATEX_HEADER: \hypersetup{colorlinks=true, linkcolor=blue}
+
+# This line inserts a table of contents with the current section highlighted at
+# the beginning of each section
+#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Topic}\tableofcontents[currentsection]\end{frame}}
+
+# export second level headings as beamer frames. All headlines below
+# the org-beamer-frame-level (i.e. below H value in OPTIONS), are
+# exported as blocks
+#+OPTIONS: H:2
+
+#+BEAMER_HEADER:
+
+
+* COMMENT Some remarks on options
+  - [[info:org#Export%20settings][info:org#Export settings]]
+  - The H:2 setting in the options line is important for setting the
+    Beamer frame level. Headlines will become frames when their level
+    is equal to =org-beamer-frame-level=.
+  - ^:{} interpret abc_{subs} as subscript, but not abc_subs
+  - num:t configures whether to use section numbers. If set to a number
+    only headlines of this level or above will be numbered
+  - ::t defines that lines starting with ":" will use fixed width font
+  - |:t include tables in export
+  - -:t Non-nil means interpret "\-", "--" and "---" for export.
+  - f:t include footnotes
+  - *:t Non-nil means interpret
+    : *word*, /word/, _word_ and +word+.
+  - <:t toggle inclusion of timestamps
+  - timestamp:t include a document creation timestamp into the exported file
+  - todo:t include exporting of todo keywords
+  - d:nil do not export org heading drawers
+  - tags:nil do not export headline tags
+
+
+* Introduction
+  
+** Brief History: ggplot2 
+- Data visualization system created by Hadley Wickham
+
+** Brief History: ggplot2
+- Data visualization system created by Hadley Wickham
+- written in R
+
+** Brief History: ggplot2
+- Data visualization system created by Hadley Wickham
+- written in R
+- Can replace base R graphics
+
+** Brief History: ggplot2
+- Data visualization system created by Hadley Wickham
+- written in R
+- Can replace base R graphics
+- Implementation of Wilkinson's Gramar of Graphics
+
+*** Build graphics in code blocks			     :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+#+LATEX_HEADER: \RequirePackage{fancyvrb} 
+#+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\huge}
+#+BEGIN_EXAMPLE
+p <- qplot(x, y, data=df, geom="none")
+
+p <- p+geom_boxplot()
+
+p <- p+facet_wrap(~factor)
+#+END_EXAMPLE
+
+** Motivation for using ggplot2
+- Very powerful and flexible
+
+** Motivation for using ggplot2
+- Very powerful and flexible
+- Complete your analysis in R, and then make graphics - *Reproducible Research*
+
+
+** Motivation for using ggplot2
+- Very powerful and flexible
+- Complete your analysis in R, and then make graphics - *Reproducible Research*
+- Nice output abilities to export as svg for postprocessing with Inkscape
+
+** Motivation for using ggplot2
+- Very powerful and flexible
+- Complete your analysis in R, and then make graphics - *Reproducible Research*
+- Nice output abilities to export as svg for postprocessing with Inkscape
+- Publication Quality Graphics
+
+
+* ggplot2 code
+** qplot
+
+#+BEGIN_EXAMPLE
+
+qplot(x, y, data=df)
+
+#+END_EXAMPLE
+#+ATTR_LaTeX: :width 7cm :height 7cm
+[[file:./plot.png]]
+
+** Color and shape: qplot(x, y,data=df, size=I(3)) +publication()
+*** col=factor 							      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+#+ATTR_LaTeX: :width 6cm :height 6cm
+[[file:./plot_col.png]]
+
+*** shape=factor 						      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+#+ATTR_LaTeX: :width 6cm :height 6cm
+[[file:./plot_shape.png]]
+
+** geoms
+- These are the possible "kinds" of plots you can make
+selected geoms:
+- point
+- line
+- boxplot
+- histogram
+
+** geoms: point and line qplot(x, y, data=a, size=I(3)) +publication()
+*** geom="point" 						      :BMCOL:
+    :PROPERTIES: 
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+[[file:./point.png]]
+
+*** geom="line" 						      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+[[file:./line.png]]
+
+
+** geoms: boxplot and histogram 
+*** qplot(factor, y, data=a, geom="boxplot")+publication() 	      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+[[file:./boxplot.png]]
+
+*** qplot(rnorm(100), geom="histogram", bins=10)+publication() 	      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+ [[file:./histogram.png]]
+
+
+** Base R versus ggplot2
+*** Base R 							      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    [[file:./Base.png]]
+
+*** ggplot2 							      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:      
+    [[file:./Ahh_Better_ggplot2_example.png]]   
+
+
+** Base R graphics code
+#+LATEX_HEADER: \RequirePackage{fancyvrb}
+#+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\scriptsize}
+#+BEGIN_EXAMPLE
+#data
+cars <- c(1, 3, 6, 4, 9)
+trucks <- c(2, 5, 4, 5, 12)
+g_range <- range(0, cars, trucks)
+
+#plot
+plot(cars, type="o", col="blue", ylim=g_range, 
+   axes=FALSE, ann=FALSE)
+axis(1, at=1:5, lab=c("Mon","Tue","Wed","Thu","Fri"))
+axis(2, las=1, at=4*0:g_range[2])
+box()
+lines(trucks, type="o", pch=22, lty=2, col="red")
+title(main="Autos", col.main="red", font.main=4)
+title(xlab="Days", col.lab=rgb(0,0.5,0))
+title(ylab="Total", col.lab=rgb(0,0.5,0))
+legend(1, g_range[2], c("cars","trucks"), cex=0.8, 
+   col=c("blue","red"), pch=21:22, lty=1:2);
+ #+END_EXAMPLE
+
+
+
+** ggplot graphics code
+#+LATEX_HEADER: \RequirePackage{fancyvrb}
+#+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\scriptsize}
+#+BEGIN_EXAMPLE
+#data
+library(ggplot2)
+library(reshape2)
+ct <- data.frame(cars = c(1, 3, 6, 4, 9), trucks = c(2, 5, 4, 5, 12), day=c(1:5))
+ct.melt <- melt(ct, id.var="day")
+
+#ggplot2
+p <- qplot(day, value, data=ct.melt, col=variable)
+p <- p+geom_line()
+p <- p+scale_x_continuous(labels=c("Mon", "Tue", "Wed", "Thu", "Fri"))
+p <- p+xlab("Days")
+p <- p+ylab("Total")
+p <- p+ggtitle("Autos")
+p 
+#+END_EXAMPLE
+
+
+* Publication Quality Graphics (Examples)
+
+** Publication Quality Graphics: Partial Least Squares
+#+ATTR_LaTeX: :width 10cm :height 10cm
+[[file:./bug.pls.out.png]]
+
+** Publication Quality Graphics: 6 panel figure
+#+ATTR_LaTeX: :width 8cm :height 8cm
+[[file:./hhydrology.png]]
+
+
+* Exercises
+** Let's get started
+1. General introduction to ggplot2
+
+2. Velocity data from an experiment I ran in Sandy Creek
+
+3. *Questions?*

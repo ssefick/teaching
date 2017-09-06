@@ -1,0 +1,32 @@
+** Emacs Shortcuts for Exercise
+
+*** File/General Utilities
+- C-g - stop command ***STOP EMACS IN ITS TRACKS***
+- C-x C-c - exits emacs
+- C-x C-s - saves file
+- C-x C-f - opens file
+- C-x k - kills a buffer
+- C-x 1 - single window
+- C-x 2 - horizontal 2 pane
+- C-x 3 - vertical 2 pane
+- M-x - run command
+- C-x o move between buffers
+
+*** Terminal  
+- M-x term - start terminal
+- C-c C-J charmode -> linemode
+- C-c C-k linemode -> charmode
+
+*** Text Editing
+- C-f - forward 1 character
+- C-b - bacward 1 character
+- C-n - down 1 line
+- C-p - up 1 line
+- C-a - begining of line
+- C-e - end of line
+
+*** Copy/Paste
+- C-space - set mark; select area
+- C-w - cut
+- M-w - copy
+- C-y - paste

@@ -1,0 +1,348 @@
+% Created 2017-09-05 Tue 13:08
+\documentclass[t,10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\mode<beamer>{\usetheme{Madrid}}
+\lstset{
+language=sh,
+otherkeywords={=, +, [, ], (, ), \{, \}, *, $},
+emph={addgroup,adduser,alias,ant,apropos,apt-get,aptitude,aspell,awk,basename,bash,bc,bg,break,builtin,bzip2,cal,case,cat,cd,cfdisk,chgrp,chkconfig,chmod,chown,chroot,cksum,clear,cmp,comm,command,continue,cp,cron,crontab,csplit,cut,date,dc,dd,ddrescue,declare,df,diff,diff3,    dig,dir,dircolors,dirname,dirs,dmesg,du,echo,egrep,eject,enable,env,    ethtool,eval,exec,exit,expand,expect,export,expr,false,fdformat,    fdisk,fg,fgrep,file,find,fmt,fold,for,format,free,fsck,ftp,function,    fuser,gawk,getopts,    git,    grep,groups,gzip,    gunzip,    ,hash,head,help,history,hostname,    id,if,ifconfig,ifdown,ifup,import,install,    java, java6, java_cur    join,kill,killall,    let,ln,local,locate,logname,logout,look,lpc,lpr,lprint,lprintd,    lprintq,lprm,ls,lsof,make,man,mkdir,mkfifo,mkisofs,mknod,mmv,more,    mount,mtools,mtr,mv,    mysql,    netstat,nice,nl,nohup,notify-send,    noweb,noweave,    nslookup,op,    open,passwd,paste,pathchk,ping,pkill,popd,pr,printcap,printenv,    printf,ps,pushd,pwd,quota,quotacheck,quotactl,ram,rcp,read,    readarray,readonly,reboot,remsync,rename,renice,return,rev,rm,rmdir,    rsync,scp,screen,sdiff,sed,select,seq,set,sftp,shift,shopt,shutdown,    sleep,slocate,sort,source,split,ssh,strace,su,sudo,sum,    svn, svn2git,    symlink,sync,    tail,tar,tee,test,time,times,top,touch,tr,traceroute,trap,true,    tsort,tty,type,ulimit,umask,umount,unalias,uname,unexpand,uniq,    units,    unrar,    unset,unshar,until,useradd,usermod,users,uudecode,uuencode,    vdir,vi,vmstat,watch,wc,Wget,whereis,which,while,who,whoami,write,    zcat},
+breaklines=true,
+keywordstyle=\color{blue},
+stringstyle=\color{red},
+emphstyle=\color{black}\bfseries,
+commentstyle=\color{gray}\slshape
+}
+\hypersetup{colorlinks=true, linkcolor=blue}
+\AtBeginSection[]{\begin{frame}<beamer>\frametitle{Topic}\tableofcontents[currentsection]\end{frame}}
+\usetheme{Madrid}
+\author{Stephen A. Sefick}
+\date{\today}
+\title{Using text Editors}
+\hypersetup{
+ pdfauthor={Stephen A. Sefick},
+ pdftitle={Using text Editors},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 24.5.1 (Org mode 8.3.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+
+
+\section{Introduction}
+\label{sec:orgheadline4}
+\begin{frame}[label={sec:orgheadline1}]{Introduction}
+\begin{enumerate}[<+->]
+\item Motivation
+\item Let's talk about text
+\begin{itemize}
+\item data
+\item scripts
+\end{itemize}
+\item Syntax Highlighting
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline2}]{Motivation}
+\begin{enumerate}[<+->]
+\item What can we store as text?
+\begin{itemize}
+\item TRICK QUESTION!!!
+\item EVERYTHING!!!
+\end{itemize}
+\item Relevance to biology
+\begin{itemize}
+\item Raw Data files
+\begin{itemize}
+\item vcf files
+\item bed files
+\item fasta files
+\item data logger files
+\item etc., etc., etc.
+\end{itemize}
+\item Script files
+\begin{itemize}
+\item R
+\item Python
+\item Perl
+\item Bash
+\item C, GO, etc.
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+\end{frame}
+\begin{frame}[label={sec:orgheadline3}]{Why is this so important?}
+\begin{enumerate}[<+->]
+\item plain text is persistent
+\begin{itemize}
+\item Won't produce weird and obsolete file formats
+\begin{itemize}
+\item Every heard of Quattro Pro?
+\item Data lost to the world!!!
+\end{itemize}
+\end{itemize}
+\item Plain text is OS/editor independent
+\begin{itemize}
+\item e.g., emacs org mode files opened on windows
+\end{itemize}
+\item Easily manipulated!!!
+\begin{itemize}
+\item Python or Perl
+\end{itemize}
+\item Version control 
+\begin{itemize}
+\item git!!!
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\section{Text Editors}
+\label{sec:orgheadline14}
+\begin{frame}[label={sec:orgheadline5}]{Types of editors}
+\begin{enumerate}[<+->]
+\item Linux
+\begin{itemize}
+\item Vi / Vim editor
+\item gedit editor
+\item Nano editor
+\item Emacs Editor
+\end{itemize}
+\item Mac
+\begin{itemize}
+\item text wrangler
+\end{itemize}
+\item Windows
+\begin{itemize}
+\item emacs
+\item probably other things\ldots{}
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline6}]{Why use/what is an editor?}
+\begin{enumerate}[<+->]
+\item Text editors are similar to word processors 
+\begin{itemize}
+\item less "features" (or annoyances\ldots{})
+\item generally better at editing text
+\end{itemize}
+\item Basic text editor generally OS supplied
+\item Main uses
+\begin{itemize}
+\item write in plain text
+\end{itemize}
+\item Good text editors have
+\begin{itemize}
+\item Syntax highlighting
+\begin{itemize}
+\item color coded text based on language
+\end{itemize}
+\item nice shortcuts that can speed your txt editing
+\end{itemize}
+\item A popular text editor for Linux is called ‘Vi’. 
+\begin{itemize}
+\item UNIX-y.
+\item red hat super user default editor
+\end{itemize}
+\item Improved to ‘VIM’ which means ‘Vi IMproved’.
+\item VIM is hard to use\ldots{} (I am an emacs man myself!)
+\item Emacs is hard to use
+\begin{itemize}
+\item definite learning curve
+\item but \ldots{}
+\begin{itemize}
+\item well worth it
+\item can be used to replace everything!!!
+\end{itemize}
+\end{itemize}
+\item We will focus on other editors
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline7}]{Types of editors}
+\begin{enumerate}[<+->]
+\item Two main types of editors.
+\begin{itemize}
+\item Console based editors
+\item GUI based editors
+\end{itemize}
+\item Console based editors
+\begin{itemize}
+\item emacs
+\item nano
+\item vim
+\end{itemize}
+\item GUI based editors
+\begin{itemize}
+\item PC
+\begin{itemize}
+\item gedit,
+\item TextWrangler
+\end{itemize}
+\item Linux
+\begin{itemize}
+\item gedit
+\item emacs
+\end{itemize}
+\item Mac
+\begin{itemize}
+\item TextWrangler
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+\end{frame}
+\begin{frame}[label={sec:orgheadline8}]{Console based editors}
+\begin{enumerate}[<+->]
+\item \$ nano somefile.txt
+
+\item \$ emacs -nw somefile.txt
+
+\item \$ vi somefile.txt
+
+\item somefile.txt 
+\begin{itemize}
+\item exist or not in present working directory (pwd)
+\item if exists will open
+\item else will create
+\item PATH is important
+\begin{itemize}
+\item emacs -nw somefile.txt (in \textasciitilde{}/Desktop/)
+\item emacs -nw \textasciitilde{}/somefile.txt
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline9}]{Nano}
+\begin{enumerate}[<+->]
+\item OS: Linux and Mac
+\item GNU Nano written in 1999 by Chris Allegretta.
+\item GNU clone of Pico editor.
+\item GNU Nano is a small and friendly text editor
+\item Besides basic text editing
+\begin{itemize}
+\item interactive search and replace
+\item go to line and column number
+\item auto-indentation
+\item feature toggles
+\item internationalization support
+\item filename tab completion
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline10}]{VI/VIM editor}
+\begin{enumerate}[<+->]
+\item OS: Unix, Linux and Windows
+\item First Vim editor built in 1991
+\item Vim 
+\begin{itemize}
+\item command-line interface (CLI)
+\item graphical user interface (GUI)
+\item gVim is the graphical version
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline11}]{EMACS!!!!!!!!!!!!!}
+\begin{enumerate}[<+->]
+\item OS: Unix, Linux and Windows
+\item first written in 1972 at MIT
+\item GNU Emacs written 1984 by Richard Stallman
+\item Emacs
+\begin{itemize}
+\item emacs -nw file; command-line interface (CLI)
+\item emacs file; graphical user interface (GUI)
+\item supports everything!!!
+\end{itemize}
+\item Must install
+\begin{itemize}
+\item What linux distro thinlink?
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline12}]{TextWrangler}
+\begin{enumerate}[<+->]
+\item OS: Mac
+\item I know people love it.
+\item Looks like TextWrangler is being "sunsetted"
+\begin{itemize}
+\item use BBedit
+\end{itemize}
+\item \url{https://www.barebones.com/products/textwrangler/}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline13}]{Smultron}
+\begin{enumerate}[<+->]
+\item When I used Mac\ldots{}
+\item this editor ruled!
+\item \url{https://www.peterborgapps.com/smultron/}
+\end{enumerate}
+\end{frame}
+
+\section{Syntax Highlighting}
+\label{sec:orgheadline17}
+\begin{frame}[label={sec:orgheadline15}]{What is Syntax Highlighting?}
+\begin{enumerate}
+\item colorful text!
+\item importantly it helps
+\begin{itemize}
+\item Readability
+\item error finding
+\item speed
+\end{itemize}
+\item Used?
+\item In text editors
+\item Scripts
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[label={sec:orgheadline16}]{Let's set Nano up}
+\begin{enumerate}[<+->]
+\item open hello\_python.py
+\begin{itemize}
+\item nano hello\_python.py
+\item notice not colorful
+\end{itemize}
+\item chmod +x hello\_python.py
+\item ./hello\_python
+\item Do you have .nanorc?
+\item if no proceed to 6; if yes proceed to 8
+\item cp \emph{etc/nanorc \textasciitilde{}}.nanorc
+\item nano \textasciitilde{}/.nanorc
+\item uncomment whatever languages you use
+\begin{itemize}
+\item python
+\item R
+\item bash
+\end{itemize}
+\item open hello\_python.py
+\begin{itemize}
+\item notice the wonderful colors!
+\end{itemize}
+\item That's syntax highlighting!
+\end{enumerate}
+\end{frame}
+\end{document}

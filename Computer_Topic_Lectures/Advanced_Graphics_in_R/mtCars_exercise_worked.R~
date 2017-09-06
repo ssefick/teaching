@@ -1,0 +1,8 @@
+library(ggplot2)
+data(mtcars)
+
+mtcars[mtcars$am==1,"am"] <- "automatic"
+mtcars[mtcars$am==0,"am"] <- "manual"
+
+histogram <- qplot(mpg, data=mtcars, geom="histogram", bins=5, fill=am, col=am)
+

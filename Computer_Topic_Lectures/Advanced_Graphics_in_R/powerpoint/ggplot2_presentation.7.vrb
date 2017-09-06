@@ -1,0 +1,17 @@
+\frametitle{Brief History: ggplot2}
+\begin{itemize}
+\item Data visualization system created by Hadley Wickham
+\item written in R
+\item Can replace base R graphics
+\item Implementation of Wilkinson's Gramar of Graphics
+\end{itemize}
+
+\begin{exampleblock}{Build graphics in code blocks}
+\begin{verbatim}
+p <- qplot(x, y, data=df, geom="none")
+
+p <- p+geom_boxplot()
+
+p <- p+facet_wrap(~factor)
+\end{verbatim}
+\end{exampleblock}

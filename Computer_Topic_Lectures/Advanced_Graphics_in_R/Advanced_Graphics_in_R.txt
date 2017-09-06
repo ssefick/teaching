@@ -1,0 +1,192 @@
+Advanced graphics in R using ggplot2
+2016-11-16
+
+
+
+1) USING GGPLOT2
+
+
+Background
+
+In this exercise, you will explore a dataset that is included with R by
+making a variety of graphs using the ggplot2 package inside of R studio.
+Specificaly, we will investigate how a number of variables affect miles
+per gallon (mpg).
+
+Explaination of the mtcars data: The data was extracted from the 1974
+MOTOR TREND US magazine,and comprises fuel consumption and 10 aspects of
+automobile design and performance for 32 automobiles (1973-74 models)
+(From: ?mtcars).
+
+
+Exercise
+
+EXPLORE THE USE OF THE GGPLOT2 PACKAGE.
+
+1.  Install ggplot2 and grid.
+
+          install.packages(c("ggplot2", "grid"))  
+
+    -   The online documentation for ggplot2 is:
+
+2.  Load the ggplot2 package and the mtcars data.
+
+          library(ggplot2)
+          data(mtcars)
+
+3.  Look at the transmission type column (am). Now, change transmission
+    type to a more intuitive coding.
+
+          mtcars[mtcars$am==1,"am"] <- "automatic" 
+          mtcars[mtcars$am==0,"am"] <- "manual"
+
+4.  In order to access how the data might be distributed, make a
+    histogram of mpg, and color it by transmission type.
+
+          qplot(mpg, data=mtcars, geom="histogram", bins=5, fill=am, col=am)
+
+5.  Make 2 boxplots to explore the effect of number of gears and
+    cylendars on mpg. Use the GEOM argument. Use the theming system to
+    change the default look of ggplot2. Because the number of cylendars
+    and gears are numeric (e.g., str(mtcars$cyl)), make cyl and gear
+    into a factor (i.e., qplot(as.factor(cyl), mpg,
+    data=mtcars, geom="boxplot")).
+
+          #Theming system example. See the documentation for more information
+          qplot(as.factor(c(rep("A",5), rep("B", 5))), 1:10, geom="boxplot")+theme_bw()
+
+    -   NOTICE THE X AXIS LABEL IS NON-SENSE. It is probably a good idea
+        to fix this. Use xlab in the qplot command to fix this (look at
+        the documentation of if you are having problems).
+
+6.  We might be interested in whether automatic and manual transmission
+    have the same relationships. You want to use the facet_wrap()
+    functionality.
+
+          #Theming system example. See the documentation for more information
+          your_plot+facet_wrap(~am)
+
+7.  Make a scatterplot to explore the relationship of horsepower and
+    miles per gallon.
+
+8.  Use a smoother to explore this relationship. Specifically, use a
+    lowess smoothing line.
+
+          #Theming system example. See the documentation for more information
+          your_plot+geom_smooth()
+
+9.  Do these data suggest a linear or some other type of relationship?
+    -   Try log transforming both mpg and hp
+
+              #log transform
+              qplot(log(hp), log(mpg), data=mtcars)+geom_smooth()
+
+    -   Is this relationship LINEAR NOW?
+
+10. We can use specific methods in geom_smooth(). Now that we are
+    convinced of log linear relationship. We can use a linear model to
+    explore these data.
+
+          #log transform
+          qplot(log(hp), log(mpg), data=mtcars)+geom_smooth(method="lm")
+
+11. Explore this relationship with transmission type included as
+    a facet.
+
+12. Does the intercept look the same?
+
+13. Does the slope look the same?
+
+14. The faceted graph is nice looking but it would be better to look at
+    these relationships without the facet. This can be acomplished with
+    setting color or shape. Color these graphs by transmission type.
+
+          #log transform
+          qplot(log(hp), log(mpg), data=mtcars, col=am)+geom_smooth()
+
+15. Everything else being EQUAL, and assuming you want to optimize MPG.
+    What type of transmission would you choose?
+
+16. Since this data is multivariate, use geom_grid() the relationship of
+    hp with mpg but also adding the information of gear, transmission,
+    and number of cylendars. With what we have learned previously and
+    gridded faceting (i.e., facet_grid())
+
+      mpg_hp_gear_trans_cyl <- qplot(hp, mpg, data=mtcars, geom="blank")+facet_grid(gear~am)
+
+      mpg_hp_gear_trans_cyl+geom_smooth(method="lm")+geom_point(aes(color=as.factor(cyl)))
+
+
+
+2) TIME SERIES - EXPERIMENT SANDY CREEK
+
+
+Background
+
+The data come from an experiment that I ran in 2013 in a creek near
+Waverly, AL. I used velocity (random slope) nested within block (random
+intercept) in a mixed model framework. I did this to statistically
+account for differences in velocity within block. This dataset has 3
+columns.
+
+
+Column Description
+
+-   DATE is date of velocity measurement
+-   BLOCK is experimental block
+-   VELOCITY is mean velocity within a block
+
+Questions
+
+1.  Does velocity vary with time?
+
+2.  Does velocity vary among blocks?
+
+3.  There was a rain event during the experiment. When was this?
+
+
+Exercise
+
+MAKE A PLOT TO INVESTIGATE HOW VELOCITY CHANGES THROUGH TIME AND BLOCK.
+
+1.  Create a file named YOUR_NAME_TIME_SERIES.R in the
+    TIME_SERIES folder. Read in EXPERIMENT_VELOCITY_TIME_SERIES.CSV to
+    an object called vel_exp
+
+          #must change date into class Date in order to have qplot recognize as such.
+          vel_exp <- read.csv("experiment_velocity_time_series.csv")
+
+2.  load the ggplot2 library, and change Date to Date class. This will
+    ensure that ggplot2 can recognize this as a Date.
+
+          #must change date into class Date in order to have qplot recognize as such.
+          library(ggplot2)
+          vel_exp$date <- as.Date(vel_exp$date)
+
+3.  Plot the relationship of Date with velocity as a line graph using
+    qplot (e.g., qplot(x, y, ...))
+
+4.  Use the col argument to color the lines by block
+
+5.  Decide if you want a facet or not
+    (i.e., facet_wrap(~variable_of_interest)
+
+6.  Explore the “theme-ing” system theme_bw() or the custom theme that I
+    have provided you.
+
+7.  To have the custom theme usable you will have to source the file
+    publication_ggplot2_theme.R with the source command.
+
+          #use my publication theme
+          source("publication_ggplot2_theme.R")
+          your_plot+publication()
+
+8.  Once you have arrived at a suitable graph save it as a pdf called
+    name_ggplot2_time_series.pdf as you did before.
+
+          pdf("name")
+          your_ggplot2_plot_object
+          dev.off
+
+9.  Please answer the questions posed above in a text file named
+    name_velocity_answers.txt

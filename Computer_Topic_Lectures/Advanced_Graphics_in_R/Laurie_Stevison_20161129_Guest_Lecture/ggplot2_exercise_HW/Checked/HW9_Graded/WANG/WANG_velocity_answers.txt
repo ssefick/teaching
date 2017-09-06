@@ -1,0 +1,9 @@
+Ex 1.
+Step 10. These data does not suggest a linear relationship. However, after log transformation, the relationship become linear
+Step 13.  The intercept is different among two different types of transmission.
+Step 14. The slope will be very close. 
+Step 15. Automatic performs better in mpg.
+Ex 2.
+1. The velocity does vary with time. It mainly increased over time. However, the pattern is not uniform among all the blocks. 
+2. The velocity does very among all the blocks. The velocity increased over time in block A,B,D,E,F. However, in block B, the velocity remains same over time. In addition, block B has the lowest mean velocity. 
+3. The rain event should be on Nov 25, because there is a uniform increase in velocity at all blocks on Nov 25. 
